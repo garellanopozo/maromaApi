@@ -1,6 +1,8 @@
 package org.sertech.maroma.config;
 
 import org.sertech.maroma.audit.AuditorAwareBean;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -12,7 +14,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Created by German on 24/07/2016.
  */
 @Configuration
-@EnableJpaRepositories(basePackages = {"org.sertech.maroma"})
+@EnableAutoConfiguration
+@EntityScan(basePackages = {"org.sertech.maroma.domain"})
+@EnableJpaRepositories(basePackages = {"org.sertech.maroma.repository"})
 @EnableTransactionManagement
 @EnableJpaAuditing
 public class AppConfig {
