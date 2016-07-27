@@ -15,6 +15,7 @@
     <properties>
         <joda-time.version>2.8.1</joda-time.version>
         <spring-boot.version>1.3.6.RELEASE</spring-boot.version>
+        <jadira.version>5.0.0.GA</jadira.version>
     </properties>
 
     <dependencies>
@@ -27,6 +28,11 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>${joda-time.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>${jadira.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

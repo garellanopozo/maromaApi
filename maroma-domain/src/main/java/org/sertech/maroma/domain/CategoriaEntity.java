@@ -5,18 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.io.Serializable;
 
 /**
  * Created by German on 23/07/2016.
  */
 @Entity
 @Table(name = "categoria")
+@Data
 @EntityListeners({ AuditingEntityListener.class })
-public class CategoriaEntity extends BaseEntity {
-	/**
-	 * 
-	 */
+public class CategoriaEntity extends BaseAuditEntity implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "codigo")
@@ -24,26 +26,5 @@ public class CategoriaEntity extends BaseEntity {
 
 	@Column(name = "descripcion")
 	private String descripcion;
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	@Override
-	public String toString() {
-		return "CategoriaEntity [codigo=" + codigo + ", descripcion=" + descripcion + ", getId()=" + getId() + "]";
-	}
 
 }
