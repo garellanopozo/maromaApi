@@ -28,8 +28,9 @@ public class ProductoTest {
     @Test
     public void addProducto() throws Exception {
         ProductoEntity prod = new ProductoEntity();
-        prod.setProdCodigo("001");
-        prod.setProdDescripcion("jugo de Naranjas");
+        prod.setCodigo("001");
+        prod.setDescripcion("jugo de Naranjas");
+        prod.setCatid(1);
         productoRepository.save(prod);
         assertNotNull(prod.getId());
         Thread.sleep(2000);

@@ -23,24 +23,12 @@ public class ProductoEntity extends BaseAuditEntity implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+    @Column(name="codigo")
+    private String codigo;
 
-    @Column(name = "prod_id")
-    private Long prodId;
+	@Column(name="descripcion")
+	private String descripcion;
 
-    @Column(name="prod_cod")
-    private String prodCodigo;
-
-    @Column(name="prod_name")
-    private String prodDescripcion;
-    
-    /*@Column(name = "prod_habilitado")
-    private String prodHabilitado;
-
-	@Column(name = "cat_cat_id")
-	private Integer categoriaId;*/
-
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "catid")
-    private CategoriaEntity categoriaId;*/
-
+    @Column(name="catid")
+    private Integer catid;
 }
