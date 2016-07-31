@@ -30,7 +30,6 @@ public class MaromaRestController {
     @RequestMapping(value = "/prodList", method = RequestMethod.GET)
     @ResponseBody
     public List<ProductoEntity> getProductoList(){
-        System.out.println("Ingresoooo");
         System.out.println(productoRepository.findAll());
         return productoRepository.findAll();
     }

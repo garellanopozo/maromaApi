@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by German on 28/07/2016.
  */
 @Controller
-@RequestMapping("/")
 public class MainController {
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping("/")
     public String homePage(){
-        return "index";
+        return "index.html";
     }
 }
