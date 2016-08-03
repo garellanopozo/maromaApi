@@ -5,7 +5,7 @@
     <parent>
         <artifactId>maromaApp</artifactId>
         <groupId>org.serendipiatechnology.maroma</groupId>
-        <version>1.0.0</version>
+        <version>${project.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,7 +20,6 @@
         <webjars.angular-resource.version>1.5.6</webjars.angular-resource.version>
         <webjars.bower.angular-ui-grid.version>3.1.1</webjars.bower.angular-ui-grid.version>
         <webjars.bower.angular-bootstrap.version>1.3.3</webjars.bower.angular-bootstrap.version>
-        <maroma.soa.version>1.0.0</maroma.soa.version>
     </properties>
 
     <dependencies>
@@ -32,7 +31,7 @@
         <dependency>
             <groupId>org.serendipiatechnology.maroma</groupId>
             <artifactId>maroma-soa</artifactId>
-            <version>${maroma.soa.version}</version>
+            <version>${project.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
