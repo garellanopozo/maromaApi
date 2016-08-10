@@ -13,8 +13,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "categoria")
 @AttributeOverrides(value = {
-		@AttributeOverride(name = "createdBy", column = @Column(name = "usuario_creacion", nullable = false)),
-		@AttributeOverride(name = "createdDate", column = @Column(name = "fecha_creacion", nullable = false)),
+		@AttributeOverride(name = "createdBy", column = @Column(name = "usuario_creacion", nullable = false, updatable = false)),
+		@AttributeOverride(name = "createdDate", column = @Column(name = "fecha_creacion", nullable = false, updatable = false)),
 		@AttributeOverride(name = "lastModifiedDate", column = @Column(name = "ultima_fecha_modificacion", nullable = false)),
 		@AttributeOverride(name = "lastModifiedBy", column = @Column(name = "ultimo_usuario_modificacion", nullable = false)),
 		@AttributeOverride(name = "deleted", column = @Column(name = "borrado", nullable = false))})

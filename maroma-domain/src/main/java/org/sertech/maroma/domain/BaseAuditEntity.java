@@ -29,21 +29,21 @@ public class BaseAuditEntity implements Serializable{
 	private Long id;
 
 	@CreatedBy
-	@Column(name = "createdby")
+	@Column(name = "usuario_creacion", updatable = false, nullable = false)
 	private String createdBy;
 	
 	@CreatedDate
-	@Column(name = "createddate")
+	@Column(name = "fecha_creacion", updatable = false, nullable = false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime", parameters={@Parameter(name="databaseZone", value="jvm")})
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private DateTime createdDate;
 	
 	@LastModifiedBy
-	@Column(name = "lastmodifiedby")
+	@Column(name = "ultimo_usuario_modificacion", nullable = false)
 	private String lastModifiedBy;
 	
 	@LastModifiedDate
-	@Column(name = "lastmodifieddate")
+	@Column(name = "ultima_fecha_modificacion", nullable = false)
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime", parameters={@Parameter(name="databaseZone", value="jvm")})
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private DateTime lastModifiedDate;
