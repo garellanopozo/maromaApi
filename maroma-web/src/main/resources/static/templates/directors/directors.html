@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="grid"
+         ui-grid="vm.gridData"
+         ui-grid-selection
+         ng-if="vm.totalServerItems > 0">
+    </div>
+    <p ng-if="vm.totalServerItems == 0">
+        <small class="my-form text-danger"
+               ng-show="true">No records were found
+        </small>
+    </p>
+</div>

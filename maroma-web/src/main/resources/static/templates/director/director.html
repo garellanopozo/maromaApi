@@ -1,0 +1,88 @@
+<div class="container">
+    <div>
+        <a href="#/directors/">back</a>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-filter icon-border-left"></i>
+                <strong>Director</strong>
+            </h3>
+        </div>
+        <div class="container-fluid panel-body">
+            <form class="clearfix form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-3">Image</label>
+                    <div class="col-sm-9">
+                        <img height="100"
+                             width="100"
+                             ng-src="{{vm.allData.image}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">Full Name</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.fullName}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">Sex</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.sex}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">nationality</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.nationality}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">Dob</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.dob | date:'dd/MM/yyyy'}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">Age</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.age}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">bio</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.bio}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">Spouse</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.spouse}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">Children</label>
+                    <div class="col-sm-9">
+                        <label class="col-sm-10">{{vm.allData.children}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3"
+                         style="margin-bottom: 15px;"
+                         ng-repeat="data in vm.allData.blockbusters">
+                        <div ng-repeat="(key,value) in data">
+                            <div>
+                                <label class="col-sm-5">{{key}}:</label>
+                                <p class="col-sm-7"
+                                   style="font-weight: normal;">{{value}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
