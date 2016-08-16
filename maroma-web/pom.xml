@@ -15,7 +15,7 @@
 
     <properties>
         <webjars.angularjs.version>1.5.5</webjars.angularjs.version>
-        <webjars.bootstrap.version>3.3.6</webjars.bootstrap.version>
+        <webjars.bootstrap.version>3.3.7</webjars.bootstrap.version>
         <webjars.ng-grid.version>2.0.14</webjars.ng-grid.version>
         <webjars.angular-resource.version>1.5.6</webjars.angular-resource.version>
         <webjars.bower.angular-ui-grid.version>3.1.1</webjars.bower.angular-ui-grid.version>
