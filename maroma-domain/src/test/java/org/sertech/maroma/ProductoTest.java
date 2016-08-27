@@ -21,20 +21,23 @@ public class ProductoTest {
     private ProductoRepository productoRepository;
 
     @Test
-    public void selectitems(){
-        System.out.println("Ingreso de items");
-    }
-
-    @Test
     public void addProducto() throws Exception {
         ProductoEntity prod = new ProductoEntity();
         prod.setCodigo("001");
         prod.setDescripcion("jugo de Naranjas");
-        prod.setCatid(1);
+        prod.setCategoriaId(1);
         productoRepository.save(prod);
         assertNotNull(prod.getId());
         Thread.sleep(2000);
-        System.out.println(prod);
+    }
+    
+    @Test
+    public void updateProducto() throws Exception {
+        ProductoEntity prod = productoRepository.findOne(1L);
+        prod.setCodigo("00000001");
+        prod = productoRepository.save(prod);
+        assertNotNull(prod);
+        Thread.sleep(2000);
     }
 }
 

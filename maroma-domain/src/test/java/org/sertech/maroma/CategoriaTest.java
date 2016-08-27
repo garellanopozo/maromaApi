@@ -2,6 +2,9 @@ package org.sertech.maroma;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,31 +21,30 @@ public class CategoriaTest {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-
     @Test
     public void findAllTest() throws Exception {
-        for(CategoriaEntity producto : categoriaRepository.findAll()) {
-            System.out.println(producto);
-        }
+    	List<CategoriaEntity> producto = categoriaRepository.findAll();
+    	assertNotNull(producto);
     }
-    
+
     @Test
     public void insertTest() throws Exception {
     	CategoriaEntity categoria = new CategoriaEntity();
-    	categoria.setCodigo("Menu");
+    	categoria.setCodigo("00000001");
     	categoria.setDescripcion("Menu");
     	assertNull(categoria.getId());
     	categoria = categoriaRepository.save(categoria);
     	assertNotNull(categoria.getId());
-    	Thread.sleep(2000);
-    	categoria.setDescripcion("Menu Menu");
-    	categoria = categoriaRepository.save(categoria);
-    	System.out.println(categoria);
     }
-
+    
     @Test
-    public void selectitems(){
-        System.out.println("Ingreso de items");
+    public void updateTest() throws Exception {
+    	Long productId = 5L;
+    	CategoriaEntity categoria = categoriaRepository.findOne(productId);
+    	categoria.setCodigo("00000001");
+    	categoria.setDescripcion("Menu");
+    	categoriaRepository.save(categoria);
+    	categoria = categoriaRepository.findOne(productId);
+    	assertTrue(categoria.getCodigo().equals("00000001"));
     }
-
 }
