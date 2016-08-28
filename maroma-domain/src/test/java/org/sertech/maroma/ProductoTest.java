@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 /**
  * Created by garellano on 27/07/2016.
  */
@@ -28,7 +30,6 @@ public class ProductoTest {
         prod.setCategoriaId(1);
         productoRepository.save(prod);
         assertNotNull(prod.getId());
-        Thread.sleep(2000);
     }
     
     @Test
@@ -37,7 +38,12 @@ public class ProductoTest {
         prod.setCodigo("00000001");
         prod = productoRepository.save(prod);
         assertNotNull(prod);
-        Thread.sleep(2000);
+    }
+    
+    @Test
+    public void buscarProducto() throws Exception {
+        List<ProductoEntity> lista = productoRepository.buscarProducto();
+        assertNotNull(lista);
     }
 }
 
