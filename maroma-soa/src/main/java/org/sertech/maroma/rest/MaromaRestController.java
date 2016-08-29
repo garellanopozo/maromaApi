@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.sertech.maroma.canonical.CategoriaCanonicalRequest;
 import org.sertech.maroma.canonical.CategoriaCanonicalResponse;
+import org.sertech.maroma.canonical.ClienteCanonicalRequest;
+import org.sertech.maroma.canonical.ClienteCanonicalResponse;
 import org.sertech.maroma.canonical.ProductoCanonicalRequest;
 import org.sertech.maroma.canonical.ProductoCanonicalResponse;
-import org.sertech.maroma.domain.CategoriaEntity;
-import org.sertech.maroma.domain.ProductoEntity;
 import org.sertech.maroma.service.CategoriaService;
+import org.sertech.maroma.service.ClienteService;
 import org.sertech.maroma.service.ProductoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,17 +35,20 @@ public class MaromaRestController {
     
     @Autowired
     private CategoriaService categoriaService;
+    
+    @Autowired
+    private ClienteService clienteService;
 
     /*
      * Categoria Service
      */
     @RequestMapping(value = "/guardarCategoria", method = RequestMethod.POST)
     @ResponseBody
-    public CategoriaCanonicalResponse saveCategoria(@RequestBody CategoriaCanonicalRequest request){
+    public CategoriaCanonicalResponse guardarCategoria(@RequestBody CategoriaCanonicalRequest request){
     	logger.debug("request body :" + request);
     	CategoriaCanonicalResponse response = null;
     	if ( request != null ){
-    		response = categoriaService.addCategoria(request);
+    		response = categoriaService.guardarCategoria(request);
     	}
     	logger.debug("response body : " + response);
         return response;
@@ -52,11 +56,11 @@ public class MaromaRestController {
     
     @RequestMapping(value = "/eliminarCategoria", method = RequestMethod.POST)
     @ResponseBody
-    public CategoriaCanonicalResponse deleteCategoria(@RequestBody CategoriaCanonicalRequest categoriaCanonical){
+    public CategoriaCanonicalResponse eliminarCategoria(@RequestBody CategoriaCanonicalRequest categoriaCanonical){
     	logger.debug("request body :" + categoriaCanonical);
     	CategoriaCanonicalResponse response = null;
     	if ( categoriaCanonical.getId() != null ){
-    		response = categoriaService.deleteCategoria(categoriaCanonical);
+    		response = categoriaService.eliminarCategoria(categoriaCanonical);
     	}
     	logger.debug("response body : " + response);
         return response;
@@ -67,7 +71,7 @@ public class MaromaRestController {
      */
     @RequestMapping(value = "/guardarProducto", method = RequestMethod.POST)
     @ResponseBody
-    public ProductoCanonicalResponse saveProduct(@RequestBody ProductoCanonicalRequest request){
+    public ProductoCanonicalResponse guardarProduct(@RequestBody ProductoCanonicalRequest request){
     	logger.debug("request body :" + request);
     	
     	ProductoCanonicalResponse response = null;
@@ -80,7 +84,7 @@ public class MaromaRestController {
     
     @RequestMapping(value = "/eliminarProducto", method = RequestMethod.POST)
     @ResponseBody
-    public ProductoCanonicalResponse deleteProducto(@RequestBody ProductoCanonicalRequest request){
+    public ProductoCanonicalResponse eliminarProducto(@RequestBody ProductoCanonicalRequest request){
     	logger.debug("request body :" + request);
     	
     	ProductoCanonicalResponse response = null;
@@ -97,6 +101,35 @@ public class MaromaRestController {
     	
     	List<ProductoCanonicalResponse> response = null;    	
     	response = productoService.buscarProducto();  
+    	logger.debug("response body : " + response);
+        return response;
+    }
+    
+    /*
+     * Cliente Services
+     */
+    @RequestMapping(value = "/guardarCliente", method = RequestMethod.POST)
+    @ResponseBody
+    public ClienteCanonicalResponse guardarCliente(@RequestBody ClienteCanonicalRequest request){
+    	logger.debug("request body :" + request);
+    	
+    	ClienteCanonicalResponse response = null;
+    	if ( request != null ){
+    		response = clienteService.guardarCliente(request);
+    	}
+    	logger.debug("response body : " + response);
+        return response;
+    }
+    
+    @RequestMapping(value = "/eliminarCliente", method = RequestMethod.POST)
+    @ResponseBody
+    public ClienteCanonicalResponse eliminarCliente(@RequestBody ClienteCanonicalRequest request){
+    	logger.debug("request body :" + request);
+    	
+    	ClienteCanonicalResponse response = null;
+    	if ( request != null ){
+    		response = clienteService.eliminarCliente(request);
+    	}
     	logger.debug("response body : " + response);
         return response;
     }

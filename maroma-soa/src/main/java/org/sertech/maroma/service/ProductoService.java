@@ -6,7 +6,7 @@ import org.sertech.maroma.canonical.ProductoCanonicalRequest;
 import org.sertech.maroma.canonical.ProductoCanonicalResponse;
 
 public interface ProductoService {
-	public ProductoCanonicalResponse agregarProducto(ProductoCanonicalRequest product);
-	public ProductoCanonicalResponse eliminarProducto(ProductoCanonicalRequest product);
+	public ProductoCanonicalResponse agregarProducto(ProductoCanonicalRequest request);
+	public ProductoCanonicalResponse eliminarProducto(ProductoCanonicalRequest response);
 	public List<ProductoCanonicalResponse> buscarProducto();
 }
