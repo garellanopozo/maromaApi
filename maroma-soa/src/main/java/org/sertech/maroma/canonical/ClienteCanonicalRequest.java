@@ -11,8 +11,9 @@ public class ClienteCanonicalRequest implements Serializable{
 	private Long id;
 	private String nombre;
 	private String apellido;
-	private Long razonSocial;
+	private String razonSocial;
 	private String numeroDeIdentIdentificacion;
 	private String estado;
+	private String tipoCliente;
 	
 }

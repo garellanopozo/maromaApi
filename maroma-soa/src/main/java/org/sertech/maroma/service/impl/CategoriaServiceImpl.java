@@ -5,7 +5,7 @@ import org.sertech.maroma.canonical.CategoriaCanonicalResponse;
 import org.sertech.maroma.domain.CategoriaEntity;
 import org.sertech.maroma.repository.CategoriaRepository;
 import org.sertech.maroma.service.CategoriaService;
-import org.sertech.maroma.utils.ResponseMensaje;
+import org.sertech.maroma.utils.ResponseMensajeContantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 		response.setId(categoria.getId());
 		response.setCodigo(categoria.getCodigo());
 		response.setDescripcion(categoria.getDescripcion());
-		response.setMensaje(ResponseMensaje.SERVICE_RESPONSE_ERROR);
+		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_ERROR);
 		
 		return response;
 	}
@@ -48,7 +48,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 		response.setId(categoria.getId());
 		response.setCodigo(categoria.getCodigo());
 		response.setDescripcion(categoria.getDescripcion());
-		response.setMensaje(ResponseMensaje.SERVICE_RESPONSE_OK);
+		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
 		return response;
 	}
 

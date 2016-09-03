@@ -14,5 +14,5 @@ public class ClienteCanonicalResponse extends BaseCanonicalResponse implements S
 	private String razonSocial;
 	private String numeroDeIdentIdentificacion;
 	private String estado;
-	
+	private String tipoCliente;
 }

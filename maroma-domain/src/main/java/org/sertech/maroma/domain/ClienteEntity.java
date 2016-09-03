@@ -32,4 +32,7 @@ public class ClienteEntity extends BaseAuditEntity implements Serializable {
 	
 	@Column(name = "estado")
 	private String estado;
+	
+	@Column(name = "tipo_cliente")
+	private String tipoCliente;
 }
