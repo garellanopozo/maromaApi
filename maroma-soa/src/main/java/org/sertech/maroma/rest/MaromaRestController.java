@@ -133,4 +133,17 @@ public class MaromaRestController {
     	logger.debug("response body : " + response);
         return response;
     }
+    
+    @RequestMapping(value = "/buscarCliente", method = RequestMethod.POST)
+    @ResponseBody
+    public ClienteCanonicalResponse buscarCliente(@RequestBody ClienteCanonicalRequest request){
+    	logger.debug("request body :" + request);
+    	
+    	ClienteCanonicalResponse response = null;
+    	if ( request != null ){
+    		response = clienteService.buscarCliente(request);
+    	}
+    	logger.debug("response body : " + response);
+        return response;
+    }
 }

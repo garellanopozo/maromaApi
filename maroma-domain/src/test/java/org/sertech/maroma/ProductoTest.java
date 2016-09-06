@@ -2,6 +2,7 @@ package org.sertech.maroma;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.sertech.maroma.domain.CategoriaEntity;
 import org.sertech.maroma.domain.ProductoEntity;
 import org.sertech.maroma.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,9 @@ public class ProductoTest {
         ProductoEntity prod = new ProductoEntity();
         prod.setCodigo("001");
         prod.setDescripcion("jugo de Naranjas");
-        prod.setCategoriaId(1);
+        CategoriaEntity categoria = new CategoriaEntity();
+        categoria.setId(1L);
+        prod.setCategoriaId(categoria);
         productoRepository.save(prod);
         assertNotNull(prod.getId());
     }
