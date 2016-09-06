@@ -14,14 +14,14 @@
     <version>1.0.0</version>
 
     <properties>
-        <webjars.angularjs.version>1.5.5</webjars.angularjs.version>
+        <webjars.angularjs.version>1.5.8</webjars.angularjs.version>
         <webjars.bootstrap.version>3.3.7</webjars.bootstrap.version>
         <webjars.ng-grid.version>2.0.14</webjars.ng-grid.version>
         <webjars.angular-resource.version>1.5.6</webjars.angular-resource.version>
         <webjars.bower.angular-ui-grid.version>3.1.1</webjars.bower.angular-ui-grid.version>
-        <webjars.bower.angular-bootstrap.version>1.3.3</webjars.bower.angular-bootstrap.version>
-        <webjars.jquery-ui.version>1.12.0</webjars.jquery-ui.version>
-        <webjars.jquery-ui-themes.version>1.11.4</webjars.jquery-ui-themes.version>
+        <webjars.bower.angular-bootstrap.version>2.1.3</webjars.bower.angular-bootstrap.version>
+        <webjars.jquery.version>3.1.0</webjars.jquery.version>
+        <webjars.font-awesome.version>4.6.3</webjars.font-awesome.version>
     </properties>
 
     <dependencies>
@@ -41,6 +41,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- WEBJARS -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>angularjs</artifactId>
@@ -50,17 +51,12 @@
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular-resource</artifactId>
-            <version>1.5.6</version>
+            <version>${webjars.angularjs.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>angular-ui-grid</artifactId>
             <version>${webjars.bower.angular-ui-grid.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars.bower</groupId>
-            <artifactId>angular-bootstrap</artifactId>
-            <version>${webjars.bower.angular-bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -70,19 +66,19 @@
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui</artifactId>
-            <version>${webjars.jquery-ui.version}</version>
+            <artifactId>angular-ui-bootstrap</artifactId>
+            <version>1.3.3</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>jQuery</artifactId>
+            <version>${webjars.jquery.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.webjars</groupId>
-            <artifactId>jquery-ui-themes</artifactId>
-            <version>${webjars.jquery-ui-themes.version}</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>ng-grid</artifactId>
-            <version>${webjars.ng-grid.version}</version>
-        </dependency>-->
+            <artifactId>font-awesome</artifactId>
+            <version>${webjars.font-awesome.version}</version>
+        </dependency>
     </dependencies>
 
 

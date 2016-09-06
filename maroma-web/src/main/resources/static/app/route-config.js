@@ -17,6 +17,11 @@
                 controller: 'DirectorController',
                 controllerAs: 'vm'
             })
+            .when('/ventas', {
+                templateUrl: 'templates/ventas/ventas.html',
+                controller: 'VentasController',
+                controllerAs: 'vm'
+            })
             .otherwise({
                 templateUrl: 'templates/inicio/bienvenida.html'
             });
