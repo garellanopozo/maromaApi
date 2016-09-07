@@ -1,10 +1,30 @@
 <div>
     <!--<div class="panel panel-default">-->
         <!-- <uib-accordion close-others="oneAtATime">
-            <div uib-accordion-group class="panel-default" heading="Primera instancia German" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-              This content is straight in the template.
+            <div uib-accordion-group class="panel-default" heading="Cliente - Maroma" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                <form role="form" name="searchClientForm" novalidate rc-submit="searchClientDNI()">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-xsm-12">
+                            <div class="row">
+                                <div class="form-group col-lg-4 col-md-4 col-sm-4" ng-class="{'has-error': rc.searchAdminForm.needsAttention(searchAdminForm.txtStoreNumber)}">
+                                    <label class="control-label" for="txtStoreNumber">Buscar Cliente</label>
+                                    <input id="txtStoreNumber" name="txtStoreNumber" type="text" class="form-control" ng-model="store.code" maxlength="6" axf-pattern="9" required>
+                                    <small class="help-block" ng-show="(searchAdminForm.txtStoreNumber.$error.required && rc.searchAdminForm.attempted)" translate="INFORMATION_REQUIRED"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <button id="search-store-button" type="submit" class="btn btn-primary">{{'SUBMIT_SEARCH_ADMIN_BUTTON'|translate}}</button>
+                            <button id="clear-store-button" type="button"  class="btn btn-danger" ng-click="clearSearchStore()">{{'CLEAR_SEARCH_ADMIN_BUTTON'|translate}}</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </uib-accordion> -->
+        </uib-accordion>-->
+
         <div class="container-fluid panel-body">
             <form class="form clearfix" role="form" name="editForm" novalidate rc-submit="updateEditStore()">
                 <p>Modulo de venta registra la venta del producto</p>
@@ -17,6 +37,7 @@
                                 <div class="form-group">
                                     <label class="control-label" for="itemSelect">Cliente:</label>
                                     <input type="text" class="form-control" id="storeNbr" value="{{storeInfo.facilityCode}}">
+                                    <button class="btn btn-default" ng-click="vm.launch('error')">Error Dialog</button>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-xsm-4">

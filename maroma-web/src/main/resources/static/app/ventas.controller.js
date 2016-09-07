@@ -3,7 +3,7 @@
  */
 
 (function(angular){
-    var VentasController = function(directorsService){
+    var VentasController = function(dialogs,directorsService){
         console.log("Hello Ventas-Controller");
         var vm = this;
         vm.today = function() {
@@ -21,8 +21,16 @@
         vm.open1 = function() {
             vm.popup1.opened = true;
         };
+
+        vm.launch = function(which){
+            switch(which){
+                case 'error':
+                    dialogs.error();
+                    break;
+            }
+        };
     };
-    VentasController.$inject = ['directorsService'];
+    VentasController.$inject = ['dialogs','directorsService'];
     angular.module("myApp.controllers").controller("VentasController",VentasController);
 }(angular));
 
