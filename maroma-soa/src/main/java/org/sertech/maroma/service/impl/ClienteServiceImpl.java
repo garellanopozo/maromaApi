@@ -1,5 +1,10 @@
 package org.sertech.maroma.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.sertech.maroma.canonical.ClienteCanonicalRequest;
 import org.sertech.maroma.canonical.ClienteCanonicalResponse;
 import org.sertech.maroma.domain.ClienteEntity;
@@ -9,6 +14,7 @@ import org.sertech.maroma.utils.ConstantesGenericas;
 import org.sertech.maroma.utils.ResponseMensajeContantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 @Service
@@ -48,6 +54,44 @@ public class ClienteServiceImpl implements ClienteService {
 
 		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
 		return response;
+	}
+
+	@Override
+	public ClienteCanonicalResponse buscarCliente(ClienteCanonicalRequest request) {
+		String documentoIdentidad = null;
+		ClienteCanonicalResponse response = new ClienteCanonicalResponse();
+		Map<String, Object> mapRespuesta = new HashMap<>();
+		
+		documentoIdentidad = (String) request.getParametros().
+				get(ConstantesGenericas.PARAMETER_DOCUMENTO_IDENTIDAD);
+		List<ClienteEntity> listaClientes = clienteRepository.buscarPorDocumentoIdentidad(documentoIdentidad);
+		if(!CollectionUtils.isEmpty(listaClientes)){
+			List<Map<String, String>> listaMapaClientes = mapearRespuesta(listaClientes);
+			mapRespuesta.put(ConstantesGenericas.PARAMETER_CLIENTES, listaMapaClientes);
+			response.setRespuesta(mapRespuesta);
+		}
+		
+		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
+		return response;
+	}
+	
+	private List<Map<String,String>> mapearRespuesta(List<ClienteEntity> listaClientes) {
+		List<Map<String,String>> listaMapaClientes = new ArrayList<>();
+		for(ClienteEntity cliente : listaClientes){
+			Map<String, String> mapCliente = new HashMap<>();
+			mapCliente.put(ConstantesGenericas.PARAMETER_NOMBRE, 
+					cliente.getNombre());
+			mapCliente.put(ConstantesGenericas.PARAMETER_APELLIDO, 
+					cliente.getApellido());
+			mapCliente.put(ConstantesGenericas.PARAMETER_RAZON_SOCIAL, 
+					cliente.getRazonSocial());
+			mapCliente.put(ConstantesGenericas.PARAMETER_DOCUMENTO_IDENTIDAD, 
+					cliente.getNumeroDeIdentIdentificacion());
+			mapCliente.put(ConstantesGenericas.PARAMETER_ESTADO, 
+					cliente.getEstado());
+			listaMapaClientes.add(mapCliente);
+		}
+		return listaMapaClientes;
 	}
 
 	/**
@@ -153,4 +197,5 @@ public class ClienteServiceImpl implements ClienteService {
 		}
 		return esRUCValido;
 	}
+
 }

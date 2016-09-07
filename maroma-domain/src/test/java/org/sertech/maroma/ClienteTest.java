@@ -47,4 +47,12 @@ public class ClienteTest {
     	cliente = clienteRepository.findOne(clienteId);
     	assertTrue(cliente.getNombre().equals("Saulo"));
     }
+    
+    @Test
+    public void buscarClientePorDocumentoIdentidadTest(){
+    	List<ClienteEntity> lista = clienteRepository.
+    			buscarPorDocumentoIdentidad("4562178");
+    	
+    	assertNotNull(lista);
+    }
 }

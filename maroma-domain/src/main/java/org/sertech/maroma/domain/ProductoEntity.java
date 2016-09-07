@@ -23,6 +23,7 @@ public class ProductoEntity extends BaseAuditEntity implements Serializable
 	@Column(name="descripcion")
 	private String descripcion;
 
-    @Column(name="categoria_id")
-    private Integer categoriaId;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="categoria_id", nullable = false)
+    private CategoriaEntity categoriaId;
 }
