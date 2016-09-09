@@ -1,121 +1,110 @@
 <div>
-    <!--<div class="panel panel-default">-->
-        <!-- <uib-accordion close-others="oneAtATime">
-            <div uib-accordion-group class="panel-default" heading="Cliente - Maroma" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-                <form role="form" name="searchClientForm" novalidate rc-submit="searchClientDNI()">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-xsm-12">
-                            <div class="row">
-                                <div class="form-group col-lg-4 col-md-4 col-sm-4" ng-class="{'has-error': rc.searchAdminForm.needsAttention(searchAdminForm.txtStoreNumber)}">
-                                    <label class="control-label" for="txtStoreNumber">Buscar Cliente</label>
-                                    <input id="txtStoreNumber" name="txtStoreNumber" type="text" class="form-control" ng-model="store.code" maxlength="6" axf-pattern="9" required>
-                                    <small class="help-block" ng-show="(searchAdminForm.txtStoreNumber.$error.required && rc.searchAdminForm.attempted)" translate="INFORMATION_REQUIRED"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12">
-                            <button id="search-store-button" type="submit" class="btn btn-primary">{{'SUBMIT_SEARCH_ADMIN_BUTTON'|translate}}</button>
-                            <button id="clear-store-button" type="button"  class="btn btn-danger" ng-click="clearSearchStore()">{{'CLEAR_SEARCH_ADMIN_BUTTON'|translate}}</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </uib-accordion>-->
-
+    <div class="panel panel-default">
         <div class="container-fluid panel-body">
-            <form class="form clearfix" role="form" name="editForm" novalidate rc-submit="updateEditStore()">
-                <p>Modulo de venta registra la venta del producto</p>
-                <br/>
-                <span class="subtitle">Datos del Cliente</span>
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-xsm-12">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="itemSelect">Cliente:</label>
-                                    <input type="text" class="form-control" id="storeNbr" value="{{storeInfo.facilityCode}}">
-                                    <!--<button class="btn btn-danger" ng-click="vm.launch('error')">Error Dialog</button>
-                                    <button class="btn btn-primary" ng-click="vm.launch('wait')">Wait Dialog</button>
-                                    <button class="btn btn-default" ng-click="vm.launch('notify')">Notify Dialog</button>
-                                    <button class="btn btn-success" ng-click="vm.launch('confirm')">Confirm Dialog</button>-->
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="inputText">Tipo Documento:</label>
-                                    <select class="form-control" id="inputText" name="companyBrandSelect" ng-model="companyBrand.organizationName" ng-options="companyBrand.organizationName as companyBrand.organizationName for companyBrand in companyBrandList" ng-change="companyBrandChange(companyBrand.organizationName)" required>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <label>Fecha:</label>
-                                <p class="input-group">
-                                    <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="vm.altInputFormats" />
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="vm.open1()"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                </p>
+            <br/>
+            <form class="clearfix form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-10" for="documentIdenSelect">Documento de Identidad: </label>
+                    <select class="form-control" id="documentIdenSelect" name="documentIdenSelect"
+                            ng-model="filterTransactionType"
+                            ng-options="tt.label for tt in transactionTypes">
+                        
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--<div class="container-fluid panel-body">
+        <form class="form clearfix" role="form" name="editForm" novalidate rc-submit="updateEditStore()">
+            <p>Modulo de venta registra la venta del producto</p>
+            <br/>
+            <span class="subtitle">Datos del Cliente</span>
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-xsm-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="itemSelect">Cliente:</label>
+                                <input type="text" class="form-control" id="storeNbr" value="{{storeInfo.facilityCode}}">
+                                &lt;!&ndash;<button class="btn btn-danger" ng-click="vm.launch('error')">Error Dialog</button>
+                                <button class="btn btn-primary" ng-click="vm.launch('wait')">Wait Dialog</button>
+                                <button class="btn btn-default" ng-click="vm.launch('notify')">Notify Dialog</button>
+                                <button class="btn btn-success" ng-click="vm.launch('confirm')">Confirm Dialog</button>&ndash;&gt;
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <p>Datos del Producto</p>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="itemSelect">Codigo:</label>
-                                    <input type="text" class="form-control" id="itemSelect" value="{{storeInfo.facilityCode}}" readonly>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="itemSelect">Stock:</label>
-                                    <input type="text" class="form-control" id="stoke" value="{{storeInfo.facilityCode}}">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="itemSelect">Precio:</label>
-                                    <input type="text" class="form-control" id="precio" value="{{storeInfo.facilityCode}}">
-                                </div>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="inputText">Tipo Documento:</label>
+                                <select class="form-control" id="inputText" name="companyBrandSelect" ng-model="companyBrand.organizationName" ng-options="companyBrand.organizationName as companyBrand.organizationName for companyBrand in companyBrandList" ng-change="companyBrandChange(companyBrand.organizationName)" required>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <p>Detalle Venta</p>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="itemSelect1">Cantidad:</label>
-                                    <input type="text" class="form-control" id="itemSelect1" value="{{storeInfo.facilityCode}}">
-                                </div>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <label>Fecha:</label>
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{vm.format}}" ng-model="vm.dt" is-open="vm.popup1.opened" datepicker-options="dateOptions" close-text="Close" alt-input-formats="vm.altInputFormats" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="vm.open1()"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <p>Datos del Producto</p>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="itemSelect">Codigo:</label>
+                                <input type="text" class="form-control" id="itemSelect" value="{{storeInfo.facilityCode}}" readonly>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <label class="control-label" for="itemSelect">Total:</label>
-                                    <input type="text" class="form-control" id="total" value="{{storeInfo.facilityCode}}">
-                                </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="itemSelect">Stock:</label>
+                                <input type="text" class="form-control" id="stoke" value="{{storeInfo.facilityCode}}">
                             </div>
-                            <div class="col-lg-4 col-md-4 col-xsm-4">
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-form-inline" aria-hidden="true" type="button" style="margin-top:21px;" ng-click="deleteCampaign(row.rowIndex)"><i class="fa fa-plus-square"></i></button>
-                                    <button class="btn btn-danger btn-form-inline" type="button" style="margin-top:21px;" ng-click="deleteCampaign(row.rowIndex)"><i class="fa fa-trash-o"></i></button>
-                                </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="itemSelect">Precio:</label>
+                                <input type="text" class="form-control" id="precio" value="{{storeInfo.facilityCode}}">
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12 col-xsm-12">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <p>Detalle Venta</p>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
                             <div class="form-group">
-                                <div class="col-sm-9">
-                                    <img height="100"
-                                         width="100"
-                                         src="../../images/client01.ico">
-                                </div>
+                                <label class="control-label" for="itemSelect1">Cantidad:</label>
+                                <input type="text" class="form-control" id="itemSelect1" value="{{storeInfo.facilityCode}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="itemSelect">Total:</label>
+                                <input type="text" class="form-control" id="total" value="{{storeInfo.facilityCode}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-xsm-4">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-form-inline" aria-hidden="true" type="button" style="margin-top:21px;" ng-click="deleteCampaign(row.rowIndex)"><i class="fa fa-plus-square"></i></button>
+                                <button class="btn btn-danger btn-form-inline" type="button" style="margin-top:21px;" ng-click="deleteCampaign(row.rowIndex)"><i class="fa fa-trash-o"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
-    <!--</div>-->
+                <div class="col-lg-6 col-md-12 col-xsm-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <img height="100"
+                                     width="100"
+                                     src="../../images/client01.ico">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>-->
 </div>

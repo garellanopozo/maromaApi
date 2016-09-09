@@ -13,14 +13,18 @@
         vm.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
         vm.format = vm.formats[2];
         vm.altInputFormats = ['M!/d!/yyyy'];
-
         vm.popup1 = {
             opened: false
         };
-
         vm.open1 = function() {
             vm.popup1.opened = true;
         };
+        vm.documentIdentList = [
+            {label:'Primary', value: 'PRIMARY'},
+            {label:'Secondary', value: 'SECONDARY'},
+            {label:'All', value: 'ALL'}
+        ];
+
 
        /* var _progress = 33;
 
