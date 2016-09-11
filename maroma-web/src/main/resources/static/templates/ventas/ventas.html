@@ -1,19 +1,50 @@
 <div>
-    <div class="panel panel-default">
-        <div class="container-fluid panel-body">
-            <br/>
-            <form class="clearfix form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="col-sm-10" for="documentIdenSelect">Documento de Identidad: </label>
-                    <select class="form-control" id="documentIdenSelect" name="documentIdenSelect"
-                            ng-model="filterTransactionType"
-                            ng-options="tt.label for tt in transactionTypes">
-                        
-                    </select>
+    <uib-accordion close-others="oneAtATime">
+        <div uib-accordion-group class="panel-default" is-open="status.open">
+            <uib-accordion-heading><i class="fa fa-search icon-border-left"></i>Filtro Cliente
+                <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+            </uib-accordion-heading>
+            <form class="form clearfix" role="form" name="searchClientForm" novalidate rc-submit="vm.searchClient()">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-xsm-12">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-lg-4 col-md-4 col-xsm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="documentIdenSelect">Tipo de Documento:</label>
+                                    <select class="form-control" id="documentIdenSelect" name="documentIdenSelect"
+                                            ng-model="vm.documentIdentSelected"
+                                            ng-options="docIdent.label for docIdent in vm.documentIdentList" required>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-xsm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="numDoc">Ingrese Número:</label>
+                                    <input type="text" class="form-control" id="numDoc" ng-model="vm.numDoc" axf-pattern="9">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-xsm-4">
+                                <div class="form-group">
+                                    <button id="search-client-button" class="btn btn-primary btn-form-inline" style="margin-top:21px;" type="submit">Buscar Cliente</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
-    </div>
+    </uib-accordion>
+
+    <!--&lt;!&ndash; FIRST PANEL - ACTIVE MESSAGE &ndash;&gt;
+    <accordion close-others="true">
+        <accordion-group is-open="isOpenSearch" ng-init="isOpenSearch=true">
+            <accordion-heading> <i class="fa fa-search icon-border-left"></i>{{'TITLE_FIRST_PANEL'|translate}}<i class="pull-right fa" ng-class="{'fa-chevron-circle-up': isOpenSearch, 'fa-chevron-circle-down': !isOpenSearch}"></i> </accordion-heading>
+            <div ng-if="activeAlertsize > 0" class="gridStyle" ng-grid="gridActiveAlert"></div>
+            <p ng-if="activeAlertsize == 0">
+                <small class="my-form text-danger" ng-show="true">You have 0 notifications</small>
+            </p>
+        </accordion-group>
+    </accordion>-->
 
     <!--<div class="container-fluid panel-body">
         <form class="form clearfix" role="form" name="editForm" novalidate rc-submit="updateEditStore()">

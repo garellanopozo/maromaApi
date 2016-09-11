@@ -3,7 +3,7 @@
  */
 
 (function(angular){
-    var VentasController = function($rootScope,$timeout,$translate,dialogs,directorsService){
+    var VentasController = function($rootScope,$timeout,$translate,dialogs,ventasService){
         console.log("Hello Ventas-Controller");
         var vm = this;
         vm.today = function() {
@@ -20,11 +20,18 @@
             vm.popup1.opened = true;
         };
         vm.documentIdentList = [
-            {label:'Primary', value: 'PRIMARY'},
-            {label:'Secondary', value: 'SECONDARY'},
-            {label:'All', value: 'ALL'}
+            {label:'DNI', value: 'DNI'},
+            {label:'RUC', value: 'RUC'},
+            {label:'Apellidos', value: 'Apellidos'}
         ];
+        vm.documentIdentSelected = vm.documentIdentList[0];
 
+        vm.searchClient = function(){
+            if(angular.isUndefined(vm.documentIdentSelected)){
+                console.log(vm.documentIdentSelected);
+            }
+            vm.documentIdentSelected
+        }
 
        /* var _progress = 33;
 
@@ -77,7 +84,7 @@
             },1000);
         };*/
     };
-    VentasController.$inject = ['$rootScope','$timeout','$translate','dialogs','directorsService'];
+    VentasController.$inject = ['$rootScope','$timeout','$translate','dialogs','ventasService'];
     angular.module("myApp.controllers").controller("VentasController",VentasController);
 }(angular));
 
