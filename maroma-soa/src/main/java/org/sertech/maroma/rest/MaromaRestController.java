@@ -6,10 +6,13 @@ import org.sertech.maroma.canonical.CategoriaCanonicalRequest;
 import org.sertech.maroma.canonical.CategoriaCanonicalResponse;
 import org.sertech.maroma.canonical.ClienteCanonicalRequest;
 import org.sertech.maroma.canonical.ClienteCanonicalResponse;
+import org.sertech.maroma.canonical.ComprobanteCanonicalRequest;
+import org.sertech.maroma.canonical.ComprobanteCanonicalResponse;
 import org.sertech.maroma.canonical.ProductoCanonicalRequest;
 import org.sertech.maroma.canonical.ProductoCanonicalResponse;
 import org.sertech.maroma.service.CategoriaService;
 import org.sertech.maroma.service.ClienteService;
+import org.sertech.maroma.service.ComprobanteService;
 import org.sertech.maroma.service.ProductoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +41,9 @@ public class MaromaRestController {
     
     @Autowired
     private ClienteService clienteService;
+    
+    @Autowired
+    private ComprobanteService comprobanteService;
 
     /*
      * Categoria Service
@@ -142,6 +148,22 @@ public class MaromaRestController {
     	ClienteCanonicalResponse response = null;
     	if ( request != null ){
     		response = clienteService.buscarCliente(request);
+    	}
+    	logger.debug("response body : " + response);
+        return response;
+    }
+    
+    /*
+     * Comprobante Services
+     */
+    @RequestMapping(value = "/guardarComprobante", method = RequestMethod.POST)
+    @ResponseBody
+    public ComprobanteCanonicalResponse guardarComprobante(@RequestBody ComprobanteCanonicalRequest request){
+    	logger.debug("request body :" + request);
+    	
+    	ComprobanteCanonicalResponse response = null;
+    	if ( request != null ){
+    		response = comprobanteService.guardarComprobante(request);
     	}
     	logger.debug("response body : " + response);
         return response;

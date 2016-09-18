@@ -14,4 +14,9 @@ public class ConstantesGenericas {
 	public static String PARAMETER_RAZON_SOCIAL = "razon_social";
 	public static String PARAMETER_ESTADO = "estado";
 	
+	public static String PARAMETER_ID_CLIENTE = "clienteId";
+	public static String PARAMETER_DETALLE_COMPROBANTE = "detalleComprobante";
+	public static String PARAMETER_ID_PRODUCTO = "productoId";
+	public static String PARAMETER_CANTIDAD_PRODUCTO = "cantidadDeProduct";
+	
 }
