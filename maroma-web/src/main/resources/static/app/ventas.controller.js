@@ -27,7 +27,7 @@
         vm.documentIdentSelected = vm.documentIdentList[0];
 
         vm.searchClient = function(){
-            var params = {'documentoIdentidad': vm.numDoc};
+            var params = {'documentoIdentidad': '12345678'};
             if(!angular.isUndefined(vm.documentIdentSelected)){
                 ventasService.getCliente(params)
                     .then(function(data){

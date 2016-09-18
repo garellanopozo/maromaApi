@@ -13,10 +13,26 @@
 
         function getClient(params) {
             var defer = $q.defer();
-            $http.post('http://localhost:8080/api/maroma/buscarCliente',params)
+            /*$http.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+            $http.defaults.headers.post['dataType'] = 'json'
+            $http.post('../api/maroma/buscarCliente',params)
                 .then(function(data){
                     defer.resolve(data.data);
                 })
+                .catch(function(){
+                    defer.reject();
+                });
+            return defer.promise;*/
+            $http({
+                method : 'POST',
+                url : '/api/maroma/buscarCliente',
+                data : angular.toJson(params),
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).then(function(data){
+                defer.resolve(data.data);
+            })
                 .catch(function(){
                     defer.reject();
                 });

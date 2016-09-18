@@ -1,6 +1,7 @@
 package org.sertech.maroma.rest;
 
 import java.util.List;
+import java.util.Map;
 
 import org.sertech.maroma.canonical.CategoriaCanonicalRequest;
 import org.sertech.maroma.canonical.CategoriaCanonicalResponse;
@@ -17,11 +18,9 @@ import org.sertech.maroma.service.ProductoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by German on 28/07/2016.
@@ -140,14 +139,12 @@ public class MaromaRestController {
         return response;
     }
     
-    @RequestMapping(value = "/buscarCliente", method = RequestMethod.POST)
-    @ResponseBody
-    public ClienteCanonicalResponse buscarCliente(@RequestBody ClienteCanonicalRequest request){
+    @RequestMapping(value = "/buscarCliente", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public ClienteCanonicalResponse buscarCliente(@RequestBody Map<String, Object> request){
     	logger.debug("request body :" + request);
-    	
     	ClienteCanonicalResponse response = null;
     	if ( request != null ){
-    		response = clienteService.buscarCliente(request);
+    		//response = clienteService.buscarCliente(request);
     	}
     	logger.debug("response body : " + response);
         return response;
