@@ -27,10 +27,14 @@
         vm.documentIdentSelected = vm.documentIdentList[0];
 
         vm.searchClient = function(){
-            if(angular.isUndefined(vm.documentIdentSelected)){
-                console.log(vm.documentIdentSelected);
+            var params = {'documentoIdentidad': vm.numDoc};
+            if(!angular.isUndefined(vm.documentIdentSelected)){
+                ventasService.getCliente(params)
+                    .then(function(data){
+                    vm.info = data;
+                    console.log(vm.info);
+                });
             }
-            vm.documentIdentSelected
         }
 
        /* var _progress = 33;
