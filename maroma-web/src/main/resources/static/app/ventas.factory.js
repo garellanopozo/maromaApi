@@ -7,7 +7,9 @@
 
         var service = {
             getCliente: getClient,
-            saveClient: saveClient
+            saveClient: saveClient,
+            getCliente1:getCliente1,
+            getCliente2:getCliente2
         };
         return service;
 
@@ -24,7 +26,7 @@
                 });
             return defer.promise;*/
             $http({
-                method : 'POST',
+                method : 'get',
                 url : '/api/maroma/buscarCliente',
                 data : angular.toJson(params),
                 headers : {
@@ -41,6 +43,30 @@
 
         function saveClient(){
             console.log(saveClient)
+        }
+
+        function getCliente1(dni){
+            var defer = $q.defer();
+            $http.get('http://localhost:8080/api/maroma/buscarCliente01')
+                .then(function(data){
+                    defer.resolve(data.data);
+                })
+                .catch(function(){
+                    defer.reject();
+                });
+            return defer.promise;
+        }
+
+        function getCliente2(dni){
+            var defer = $q.defer();
+            $http.post('http://localhost:8080/api/maroma/buscarCliente02',dni)
+                .then(function(data){
+                    defer.resolve(data.data);
+                })
+                .catch(function(){
+                    defer.reject();
+                });
+            return defer.promise;
         }
     };
     VentasFactory.$inject = ['$resource','$http','$q'];

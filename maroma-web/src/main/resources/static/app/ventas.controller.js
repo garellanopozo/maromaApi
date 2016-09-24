@@ -27,14 +27,24 @@
         vm.documentIdentSelected = vm.documentIdentList[0];
 
         vm.searchClient = function(){
-            var params = {'documentoIdentidad': '12345678'};
+           /* var params = {'documentoIdentidad': '12345678'};
             if(!angular.isUndefined(vm.documentIdentSelected)){
                 ventasService.getCliente(params)
                     .then(function(data){
                     vm.info = data;
                     console.log(vm.info);
                 });
-            }
+            }*/
+
+
+           /* ventasService.getCliente1('41311216').then(function(data){
+                console.log(data);
+            });*/
+
+
+            ventasService.getCliente2({'dni': '41311216'}).then(function(data){
+                console.log(data);
+            });
         }
 
        /* var _progress = 33;

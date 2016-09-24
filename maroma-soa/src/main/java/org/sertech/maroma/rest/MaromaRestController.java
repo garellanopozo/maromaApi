@@ -1,8 +1,14 @@
 package org.sertech.maroma.rest;
 
+import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 import org.sertech.maroma.canonical.CategoriaCanonicalRequest;
 import org.sertech.maroma.canonical.CategoriaCanonicalResponse;
 import org.sertech.maroma.canonical.ClienteCanonicalRequest;
@@ -139,7 +145,7 @@ public class MaromaRestController {
         return response;
     }
     
-    @RequestMapping(value = "/buscarCliente", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @RequestMapping(value = "/buscarCliente", method = RequestMethod.POST)
     public ClienteCanonicalResponse buscarCliente(@RequestBody Map<String, Object> request){
     	logger.debug("request body :" + request);
     	ClienteCanonicalResponse response = null;
@@ -149,6 +155,50 @@ public class MaromaRestController {
     	logger.debug("response body : " + response);
         return response;
     }
+
+    @RequestMapping(value = "/buscarCliente01", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String buscarCliente01() {
+        Map<String, Object> map = new HashMap<String,Object>();
+        map.put("data","hola");
+        Gson gson = new Gson();
+        String json = gson.toJson(map);
+        return json;
+    }
+
+    /*@RequestMapping(value = "/buscarCliente02", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String addDevice(@RequestBody Map<String, Object> request) {
+        return storeService.addDevice(request);
+    }
+*/
+    @RequestMapping(value = "/buscarCliente02", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String buscarCliente02(@RequestBody Map<String, Object> request) {
+        Map<String, Object> map = new HashMap<String,Object>();
+        map.put("data",request.get("dni"));
+        Gson gson = new Gson();
+        String json = gson.toJson(map);
+        return json;
+    }
+
+    /*@RequestMapping(value = "/deleteDevice", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Map<String,Object> deleteDevice(@RequestParam Map<String, Object> request) {
+        return storeService.deleteDevice(request);
+    }
+
+    @RequestMapping(value = "/updateDrawer", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody  Map<String,Object>  updateDrawer(@RequestBody Map<String, Object> request) {
+        Map<String,Object> response = null;
+        try{
+            response = storeService.updateDrawer(request);
+
+        }catch(Exception e){
+            response = new HashMap<String, Object>();
+            logger.error(e.getMessage());
+        }
+        return response;
+    }*/
+
+
+
     
     /*
      * Comprobante Services
@@ -157,7 +207,6 @@ public class MaromaRestController {
     @ResponseBody
     public ComprobanteCanonicalResponse guardarComprobante(@RequestBody ComprobanteCanonicalRequest request){
     	logger.debug("request body :" + request);
-    	
     	ComprobanteCanonicalResponse response = null;
     	if ( request != null ){
     		response = comprobanteService.guardarComprobante(request);
