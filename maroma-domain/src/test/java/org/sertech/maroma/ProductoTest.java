@@ -1,5 +1,7 @@
 package org.sertech.maroma;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sertech.maroma.domain.CategoriaEntity;
@@ -20,6 +22,7 @@ import java.util.List;
 @SpringBootTest(classes = MaromaDomainApplication.class)
 public class ProductoTest {
 
+	private Logger logger = Logger.getLogger("MyLog");
     @Autowired
     private ProductoRepository productoRepository;
 
@@ -47,6 +50,13 @@ public class ProductoTest {
     public void buscarProducto() throws Exception {
         List<ProductoEntity> lista = productoRepository.buscarProducto();
         assertNotNull(lista);
+    }
+    
+    @Test
+    public void buscarProductoByDescripcion() throws Exception {
+        List<ProductoEntity> lista = productoRepository.buscarProductoByDescription("Entra");
+        logger.info(lista.get(0).getCategoriaId().getDescripcion());
+        assertNotNull(lista.get(0).getCategoriaId().getDescripcion());
     }
 }
 

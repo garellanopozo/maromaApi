@@ -60,17 +60,19 @@ public class ClienteServiceImpl implements ClienteService {
 	public ClienteCanonicalResponse buscarCliente(ClienteCanonicalRequest request) {
 		String documentoIdentidad = null;
 		ClienteCanonicalResponse response = new ClienteCanonicalResponse();
-		Map<String, Object> mapRespuesta = new HashMap<>();
+		Map<String, Object> reponseMap = new HashMap<>();
 		
-		documentoIdentidad = (String) request.getParametros().
-				get(ConstantesGenericas.PARAMETER_DOCUMENTO_IDENTIDAD);
+		documentoIdentidad = request.getNumeroDeIdentIdentificacion();
 		List<ClienteEntity> listaClientes = clienteRepository.buscarPorDocumentoIdentidad(documentoIdentidad);
 		if(!CollectionUtils.isEmpty(listaClientes)){
 			List<Map<String, String>> listaMapaClientes = mapearRespuesta(listaClientes);
-			mapRespuesta.put(ConstantesGenericas.PARAMETER_CLIENTES, listaMapaClientes);
-			response.setRespuesta(mapRespuesta);
+			reponseMap.put(ConstantesGenericas.PARAMETER_CLIENTES, listaMapaClientes);
 		}
-		
+		else
+		{
+			reponseMap.put(ConstantesGenericas.PARAMETER_PRODUCTOS, null);
+		}
+		response.setRespuesta(reponseMap);
 		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
 		return response;
 	}

@@ -21,6 +21,7 @@ import org.sertech.maroma.service.CategoriaService;
 import org.sertech.maroma.service.ClienteService;
 import org.sertech.maroma.service.ComprobanteService;
 import org.sertech.maroma.service.ProductoService;
+import org.sertech.maroma.utils.ConstantesGenericas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,12 +107,15 @@ public class MaromaRestController {
         return response;
     }
     
-    @RequestMapping(value = "/buscarProducto", method = RequestMethod.POST)
-    @ResponseBody
-    public List<ProductoCanonicalResponse> findProducto(){
-    	
-    	List<ProductoCanonicalResponse> response = null;    	
-    	response = productoService.buscarProducto();  
+    @RequestMapping(value = "/buscarProducto", 
+    		method = RequestMethod.POST, 
+    		produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String findProducto(@RequestBody Map<String,String> requestMap){
+    	  	
+    	Map<String, Object> mapa = new HashMap<>();
+    	mapa.put("data", productoService.buscarProductoByDescription(requestMap));
+    	Gson gson = new Gson();
+    	String response = gson.toJson(mapa);
     	logger.debug("response body : " + response);
         return response;
     }
@@ -119,7 +123,8 @@ public class MaromaRestController {
     /*
      * Cliente Services
      */
-    @RequestMapping(value = "/guardarCliente", method = RequestMethod.POST)
+    @RequestMapping(value = "/guardarCliente", 
+    		method = RequestMethod.POST)
     @ResponseBody
     public ClienteCanonicalResponse guardarCliente(@RequestBody ClienteCanonicalRequest request){
     	logger.debug("request body :" + request);
@@ -145,60 +150,27 @@ public class MaromaRestController {
         return response;
     }
     
-    @RequestMapping(value = "/buscarCliente", method = RequestMethod.POST)
-    public ClienteCanonicalResponse buscarCliente(@RequestBody Map<String, Object> request){
+    @RequestMapping(value = "/buscarCliente", 
+    		produces = MediaType.APPLICATION_JSON_VALUE, 
+    		method = RequestMethod.POST)
+    public  @ResponseBody String buscarCliente(@RequestBody Map<String, Object> request){
     	logger.debug("request body :" + request);
-    	ClienteCanonicalResponse response = null;
+    	Map<String, Object> response = new HashMap<>();
     	if ( request != null ){
-    		//response = clienteService.buscarCliente(request);
+    		ClienteCanonicalRequest clienteCanonicalRequest = getClientCanonicalRequest(request);
+    		response.put("data",clienteService.buscarCliente(clienteCanonicalRequest));
     	}
     	logger.debug("response body : " + response);
-        return response;
+    	Gson gson = new Gson();
+    	String string = gson.toJson(response); 
+    	return string;
     }
 
-    @RequestMapping(value = "/buscarCliente01", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String buscarCliente01() {
-        Map<String, Object> map = new HashMap<String,Object>();
-        map.put("data","hola");
-        Gson gson = new Gson();
-        String json = gson.toJson(map);
-        return json;
-    }
-
-    /*@RequestMapping(value = "/buscarCliente02", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String addDevice(@RequestBody Map<String, Object> request) {
-        return storeService.addDevice(request);
-    }
-*/
-    @RequestMapping(value = "/buscarCliente02", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody String buscarCliente02(@RequestBody Map<String, Object> request) {
-        Map<String, Object> map = new HashMap<String,Object>();
-        map.put("data",request.get("dni"));
-        Gson gson = new Gson();
-        String json = gson.toJson(map);
-        return json;
-    }
-
-    /*@RequestMapping(value = "/deleteDevice", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Map<String,Object> deleteDevice(@RequestParam Map<String, Object> request) {
-        return storeService.deleteDevice(request);
-    }
-
-    @RequestMapping(value = "/updateDrawer", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody  Map<String,Object>  updateDrawer(@RequestBody Map<String, Object> request) {
-        Map<String,Object> response = null;
-        try{
-            response = storeService.updateDrawer(request);
-
-        }catch(Exception e){
-            response = new HashMap<String, Object>();
-            logger.error(e.getMessage());
-        }
-        return response;
-    }*/
-
-
-
+    private ClienteCanonicalRequest getClientCanonicalRequest(Map<String, Object> map) {
+    	ClienteCanonicalRequest request = new ClienteCanonicalRequest();
+    	request.setNumeroDeIdentIdentificacion((String) map.get(ConstantesGenericas.PARAMETER_DOCUMENTO_IDENTIDAD));
+		return request;
+	}
     
     /*
      * Comprobante Services

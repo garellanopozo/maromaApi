@@ -16,7 +16,11 @@ public class ConstantesGenericas {
 	
 	public static String PARAMETER_ID_CLIENTE = "clienteId";
 	public static String PARAMETER_DETALLE_COMPROBANTE = "detalleComprobante";
-	public static String PARAMETER_ID_PRODUCTO = "productoId";
-	public static String PARAMETER_CANTIDAD_PRODUCTO = "cantidadDeProduct";
 	
+	public static String PARAMETER_PRODUCTOS = "producto";
+	public static String PARAMETER_ID_PRODUCTO = "productoId";
+	public static String PARAMETER_DESCRIPCION_PRODUCTO = "descripcionDeProduct";
+	
+	public static String PARAMETER_CODIGO_PRODUCTO = "codigoDeProduct";
+	public static String PARAMETER_CANTIDAD_PRODUCTO = "cantidadDeProduct";
 }
