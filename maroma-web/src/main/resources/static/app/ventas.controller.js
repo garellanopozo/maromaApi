@@ -10,6 +10,7 @@
             vm.dt = new Date();
         };
         vm.today();
+        vm.panelView=false;
         vm.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
         vm.format = vm.formats[2];
         vm.altInputFormats = ['M!/d!/yyyy'];
@@ -34,7 +35,13 @@
                 .then(function(data){
                     $rootScope.$broadcast('dialogs.wait.complete');
                     vm.info = data;
-                    console.log(vm.info.data.mensaje);
+                    vm.panelView = true;
+                    console.log(vm.info.data.respuesta);
+                    if(!angular.isUndefinedOrNullOrEmpty(vm.info.data.respuesta)){
+                        console.log(vm.info.data.respuesta);
+                    }else{
+                        var dlg = dialogs.confirm('', $filter('translate')('EDIT_STORE_MSG_CONFIRM_CANCEL') );
+                    }
                 });
             }
         }
