@@ -149,10 +149,10 @@ public class MaromaRestController {
     	logger.debug("response body : " + response);
         return response;
     }
-    
-    @RequestMapping(value = "/buscarCliente", 
-    		produces = MediaType.APPLICATION_JSON_VALUE, 
-    		method = RequestMethod.POST)
+	/*
+     * Buscar Cliente
+     */
+    @RequestMapping(value = "/buscarCliente", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public  @ResponseBody String buscarCliente(@RequestBody Map<String, Object> request){
     	logger.debug("request body :" + request);
     	Map<String, Object> response = new HashMap<>();
