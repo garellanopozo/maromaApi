@@ -17,10 +17,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-xsm-2">
+                            <div class="col-lg-2 col-md-2 col-xsm-2" ng-class="{'has-error': rc.searchClientForm.needsAttention(searchClientForm.txtNumDoc)}">
                                 <div class="form-group">
-                                    <label class="control-label" for="numDoc">Ingrese Número:</label>
-                                    <input type="text" class="form-control" id="numDoc" ng-model="vm.numDoc" axf-pattern="9">
+                                    <label class="control-label" for="txtNumDoc">Ingrese Número:</label>
+                                    <input type="text" class="form-control" id="txtNumDoc" ng-model="vm.numDoc" axf-pattern="9" required>
+                                    <small class="help-block" ng-show="(searchClientForm.txtNumDoc.$error.required && rc.searchClientForm.attempted)" translate="Informacion Requerida"/>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-xsm-8">
@@ -35,7 +36,7 @@
         </div>
     </uib-accordion>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-if="panelView">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <strong>Detalle de Venta</strong>
