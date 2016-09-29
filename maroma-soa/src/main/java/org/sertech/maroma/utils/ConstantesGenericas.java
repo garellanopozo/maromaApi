@@ -1,6 +1,7 @@
 package org.sertech.maroma.utils;
 
 public class ConstantesGenericas {
+	public static String TIPO_CLIENTE			= "tipoCliente";
 	public static String TIPO_CLIENTE_PERSONA	= "PERSONA";
 	public static String TIPO_CLIENTE_EMPRESA	= "EMPRESA";
 	public static String ACTIVO					= "ACTIVO";
