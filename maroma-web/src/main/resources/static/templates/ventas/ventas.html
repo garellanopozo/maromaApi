@@ -19,25 +19,35 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-xsm-2"
+                                 ng-class="{'has-error': rc.searchClientForm.needsAttention(searchClientForm.txtNumDoc)}"
                                  ng-show="vm.numDoc_view">
                                 <div class="form-group">
                                     <label class="control-label" for="txtNumDoc">* Ingrese Número:</label>
-                                    <input type="text" class="form-control" id="txtNumDoc"
+                                    <input type="text" class="form-control" id="txtNumDoc" name="txtNumDoc"
                                            ng-model="vm.numDoc"
                                            axf-pattern="9"
-                                           ng-maxlength="vm.size">
+                                           maxlength="{{vm.size}}"
+                                           ng-required="vm.requiredNum">
+                                    <small class="help-block" ng-show="(searchClientForm.txtNumDoc.$error.required && rc.searchClientForm.attempted)" translate="Informacion Requerida"/>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-xsm-2"
+                                 ng-class="{'has-error': rc.searchClientForm.needsAttention(searchClientForm.txtApellidos)}"
                                  ng-show="vm.apellidos_view">
                                 <div class="form-group">
                                     <label class="control-label" for="txtApellidos">* Ingrese Apellidos:</label>
-                                    <input type="text" class="form-control" id="txtApellidos" name="txtApellidos" ng-model="vm.apellidos" axf-pattern="9">
+                                    <input type="text" class="form-control" id="txtApellidos" name="txtApellidos"
+                                           ng-model="vm.apellidos"
+                                           axf-pattern="9"
+                                           ng-required="vm.requiredApellidos">
+                                    <small class="help-block" ng-show="(searchClientForm.txtApellidos.$error.required && rc.searchClientForm.attempted)" translate="Informacion Requerida"/>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-xsm-8">
                                 <div class="form-group">
-                                    <button id="search-client-button" class="btn btn-primary btn-form-inline" style="margin-top:21px;" type="submit">Buscar Cliente</button>
+                                    <button id="search-client-button"
+                                            class="btn btn-primary btn-form-inline"
+                                            style="margin-top:21px;" type="submit">Buscar Cliente</button>
                                 </div>
                             </div>
                         </div>
@@ -63,14 +73,14 @@
                             <div class="col-lg-2 col-md-2 col-xsm-2">
                                 <div class="form-group">
                                     <label class="control-label" for="txtTipoDoc">* Tipo de Documento: </label>
-                                    <input type="text" class="form-control" id="txtTipoDoc" value="{{vm.documentIdentSelected}}" readonly>
+                                    <input type="text" class="form-control" id="txtTipoDoc" value="{{vm.documentIdentSelected.value}}" readonly>
                                 </div>
                             </div>
                             <!--DNI Seleccionado -->
                             <div class="col-lg-2 col-md-2 col-xsm-2" ng-show='vm.numIdent_view'>
                                 <div class="form-group">
                                     <label class="control-label" for="txtNumIdent">* Número: </label>
-                                    <input type="text" class="form-control" id="txtNumIdent" name="txtNumIdent" value="{{vm.numIdentSelected}}" readonly>
+                                    <input type="text" class="form-control" id="txtNumIdent" name="txtNumIdent" value="{{vm.numIdentSelected.value}}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-xsm-3" ng-show='vm.nombreClient_view'>

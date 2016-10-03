@@ -9,47 +9,56 @@
             return angular.isUndefined(val) || val === null || val ==='' || Object.getOwnPropertyNames(val).length === 0
         }
 
+        /* ====================================== INITIAL VALUE ====================================== */
         var vm = this;
-
-        function inicio(){
-            vm.numDoc_view = false;
-            vm.apellidos_view =  false;
-            vm.panelDetalleVenta_View=false;
-            vm.panelAddClient = false;
-            vm.numIdent_view = false;
-            vm.nombreClient_view = false;
-            vm.apellidoClient_view = false;
-            vm.razonSocial_view = false;
-            vm.documentIdentList = [
-                {label:'DNI', value: 'DNI'},
-                {label:'RUC', value: 'RUC'},
-                {label:'Apellidos', value: 'Apellidos'}
-            ];
-            vm.documentIdentSelected = vm.documentIdentList[0];
-            vm.tipDocChange();
-            vm.size = 8;
-        };
-        
-        
+        vm.numDoc_view = false;
+        vm.apellidos_view =  false;
+        vm.panelDetalleVenta_View=false;
+        vm.panelAddClient = false;
+        vm.numIdent_view = false;
+        vm.nombreClient_view = false;
+        vm.apellidoClient_view = false;
+        vm.razonSocial_view = false;
+        vm.requiredNum = true;
+        vm.requiredApellidos = false;
+        vm.documentIdentList = [
+            {label:'DNI', value: 'DNI'},
+            {label:'RUC', value: 'RUC'},
+            {label:'Apellidos', value: 'Apellidos'}
+        ];
+        vm.documentIdentSelected = vm.documentIdentList[0];
+        vm.size = 8;
 
         vm.tipDocChange = function(){
             switch (vm.documentIdentSelected.value) {
                 case 'RUC':
+                    vm.requiredNum = true
+                    vm.requiredApellidos = false;
+                    vm.numDoc=null;
                     vm.numDoc_view = true;
                     vm.apellidos_view =  false;
-                    vm.size = 10;
+                    vm.size = 11;
                     break;
                 case 'Apellidos':
+                    vm.requiredNum = false;
+                    vm.requiredApellidos = true;
+                    vm.apellidos=null;
                     vm.numDoc_view = false;
                     vm.apellidos_view = true;
                     break;
                 default:
+                    vm.requiredNum = true;
+                    vm.requiredApellidos = false;
+                    vm.numDoc = '';
                     vm.numDoc_view = true;
                     vm.apellidos_view =  false;
+                    vm.size = 8;
             }
         };
 
-        return inicio();
+        vm.tipDocChange();
+
+        /* ====================================== SEARCH CLIENT ====================================== */
 
         vm.searchClient = function(){
                 dialogs.wait('buscando Cliente','Por favor, espere se está buscando el cliente<br><br>Esto solo debería tomar un momento.');
@@ -75,13 +84,15 @@
             return params;
         }
 
+        /* ====================================== ADD CLIENT ====================================== */
+
          function agregarCliente() {
             var dlg = dialogs.confirm('Confirm','El cliente no existe, desea registrarlo?');
             dlg.result.then(function(btn) {
                     vm.panelAddClient = true;
                 },
                 function(btn) {
-                    defaultValuesView();
+                    vm.panelAddClient = false;
                 });
         };
 
