@@ -27,7 +27,8 @@
             {label:'Apellidos', value: 'Apellidos'}
         ];
         vm.documentIdentSelected = vm.documentIdentList[0];
-        vm.size = 8;
+        vm.maxSize = 8;
+        vm.minSize = 8;
 
         vm.tipDocChange = function(){
             switch (vm.documentIdentSelected.value) {
@@ -37,7 +38,8 @@
                     vm.numDoc=null;
                     vm.numDoc_view = true;
                     vm.apellidos_view =  false;
-                    vm.size = 11;
+                    vm.maxSize = 11;
+                    vm.minSize = 11;
                     break;
                 case 'Apellidos':
                     vm.requiredNum = false;
@@ -52,7 +54,8 @@
                     vm.numDoc = '';
                     vm.numDoc_view = true;
                     vm.apellidos_view =  false;
-                    vm.size = 8;
+                    vm.maxSize = 8;
+                    vm.minSize = 8;
             }
         };
 
