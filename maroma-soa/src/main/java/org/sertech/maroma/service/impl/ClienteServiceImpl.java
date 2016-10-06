@@ -8,6 +8,7 @@ import java.util.Map;
 import org.sertech.maroma.canonical.ClienteCanonicalRequest;
 import org.sertech.maroma.canonical.ClienteCanonicalResponse;
 import org.sertech.maroma.domain.ClienteEntity;
+import org.sertech.maroma.dto.ClienteDTO;
 import org.sertech.maroma.repository.ClienteRepository;
 import org.sertech.maroma.service.ClienteService;
 import org.sertech.maroma.utils.ConstantesGenericas;
@@ -16,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -93,6 +97,7 @@ public class ClienteServiceImpl implements ClienteService {
 					cliente.getEstado());
 			listaMapaClientes.add(mapCliente);
 		}
+		
 		return listaMapaClientes;
 	}
 

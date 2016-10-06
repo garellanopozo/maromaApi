@@ -14,6 +14,7 @@
 
 	<properties>
 		<gson.version>1.7.1</gson.version>
+		<orika.version>1.4.2</orika.version>
 	</properties>
 
 	<dependencies>
@@ -47,6 +48,12 @@
 			<version>${gson.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+		   <groupId>ma.glasnost.orika</groupId>
+		   <artifactId>orika-core</artifactId>
+		   <version>${orika.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<!-- <build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
