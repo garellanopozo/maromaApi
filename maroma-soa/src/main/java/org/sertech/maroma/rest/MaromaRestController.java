@@ -116,7 +116,7 @@ public class MaromaRestController {
 	/*
 	 * Cliente Services
 	 */
-	@RequestMapping(value = "/guardarCliente", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/agregarCliente", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String guardarCliente(@RequestBody Map<String, Object> request) {
 		logger.debug("request body :" + request);
 		Map<String, Object> response = new HashMap<>();
