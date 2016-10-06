@@ -67,7 +67,7 @@
             </h3>
         </div>
         <div class="container-fluid panel-body">
-            <form class="form clearfix" role="form" name="editForm">
+            <form class="form clearfix" role="form" name="AddClientForm" novalidate rc-submit="vm.addClient()">
                 <!-- Fila 1 -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xsm-12">
@@ -82,32 +82,32 @@
                             <div class="col-lg-2 col-md-2 col-xsm-2" ng-show='vm.numIdent_view'>
                                 <div class="form-group">
                                     <label class="control-label" for="txtNumIdent">* Número: </label>
-                                    <input type="text" class="form-control" id="txtNumIdent" name="txtNumIdent" value="{{vm.numIdentSelected.value}}" readonly>
+                                    <input type="text" class="form-control" id="txtNumIdent" name="txtNumIdent" value="{{vm.numDoc}}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-xsm-3" ng-show='vm.nombreClient_view'>
                                 <div class="form-group">
                                     <label class="control-label" for="txtNombreClient">* Nombre(s): </label>
-                                    <input type="text" class="form-control" id="txtNombreClient" name="txtNombreClient">
+                                    <input type="text" class="form-control" id="txtNombreClient" name="txtNombreClient" ng-model="vm.nombreCliente">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-xsm-3" ng-show='vm.apellidoClient_view'>
                                 <div class="form-group">
                                     <label class="control-label" for="txtApellidoClient">* Apellido(s): </label>
-                                    <input type="text" class="form-control" id="txtApellidoClient" name="txtApellidoClient">
+                                    <input type="text" class="form-control" id="txtApellidoClient" name="txtApellidoClient" ng-model="vm.apellidosCliente">
                                 </div>
                             </div>
                             <!-- Ruc Seleccionado -->
                             <div class="col-lg-3 col-md-3 col-xsm-3" ng-show='vm.razonSocial_view'>
                                 <div class="form-group">
                                     <label class="control-label" for="txtRazonSocial">* Razón Social: </label>
-                                    <input type="text" class="form-control" id="txtRazonSocial" name="txtRazonSocial">
+                                    <input type="text" class="form-control" id="txtRazonSocial" name="txtRazonSocial" ng-model="vm.razonSocial">
                                 </div>
                             </div>
                             <!-- Buton Agregar Cliente -->
                             <div class="col-lg-2 col-md-2 col-xsm-2">
                                 <div class="form-group">
-                                    <button class="btn btn-primary btn-form-inline" style="margin-top:21px;" type="button"ng-click="deleteCampaign(row.rowIndex)">Agregar Cliente</i></button>
+                                    <button class="btn btn-primary btn-form-inline" style="margin-top:21px;" type="submit">Agregar Cliente</button>
                                 </div>
                             </div>
                         </div>
