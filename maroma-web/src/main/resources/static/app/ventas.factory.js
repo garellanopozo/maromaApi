@@ -4,11 +4,12 @@
 (function(angular){
     var VentasFactory = function($resource,$http,$q){
         var service = {
-            getCliente: getClient
+            buscarCliente: buscarCliente,
+            agregarCliente:agregarCliente
         };
         return service;
 
-        function getClient(params) {
+        function buscarCliente(params) {
             var defer = $q.defer();
             $http.post('http://localhost:8080/api/maroma/buscarCliente',params)
                 .then(function(data){
@@ -20,8 +21,16 @@
             return defer.promise;
         }
 
-        function saveClient(){
-            console.log(saveClient)
+        function agregarCliente(params){
+            var defer = $q.defer();
+            $http.post('http://localhost:8080/api/maroma/agregarCliente',params)
+                .then(function(data){
+                    defer.resolve(data.data);
+                })
+                .catch(function(){
+                    defer.reject();
+                });
+            return defer.promise;
         }
     };
     VentasFactory.$inject = ['$resource','$http','$q'];

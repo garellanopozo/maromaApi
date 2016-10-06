@@ -64,8 +64,8 @@
         /* ====================================== SEARCH CLIENT ====================================== */
 
         vm.searchClient = function(){
-                dialogs.wait('buscando Cliente','Por favor, espere se está buscando el cliente<br><br>Esto solo debería tomar un momento.');
-                ventasService.getCliente(informacionABuscar())
+                dialogs.wait('buscando Cliente','Por favor, espere se está procesando su solicitud<br><br>Esto solo debería tomar un momento.');
+                ventasService.buscarCliente(informacionABuscar())
                 .then(function(data){
                     $rootScope.$broadcast('dialogs.wait.complete');
                     if(!angular.isUndefinedOrNull(data.data.respuesta)){
@@ -79,7 +79,7 @@
         function informacionABuscar(){
             var params='';
             if(!angular.isUndefinedOrNull(vm.numDoc)){
-                params = {'documentoIdentidad': vm.numDoc};
+                params = {'numeroDocumento': vm.numDoc};
             }
             if(!angular.isUndefinedOrNull(vm.apellidos)){
                 params = {'apellido': vm.apellidos};
@@ -87,18 +87,62 @@
             return params;
         }
 
-        /* ====================================== ADD CLIENT ====================================== */
+        /* ====================================== VALIDATE ADD CLIENT ====================================== */
 
          function agregarCliente() {
             var dlg = dialogs.confirm('Confirm','El cliente no existe, desea registrarlo?');
             dlg.result.then(function(btn) {
                     vm.panelAddClient = true;
+                    detalleAgregarCliente();
                 },
                 function(btn) {
                     vm.panelAddClient = false;
                 });
         };
 
+        /* ====================================== FIELDS TO ADDS ====================================== */
+        function detalleAgregarCliente(){
+            switch (vm.documentIdentSelected.value) {
+                case 'RUC':
+                    vm.numIdent_view = false;
+                    vm.nombreClient_view = false;
+                    vm.razonSocial_view = true;
+                    break;
+                case 'Apellidos':
+                    vm.razonSocial_view = false;
+                    vm.numIdent_view = false;
+                    vm.nombreClient_view = true;
+                    vm.apellidoClient_view = true;
+                    break;
+                case 'DNI':
+                    vm.razonSocial_view = false;
+                    vm.numIdent_view = true;
+                    vm.nombreClient_view = true;
+                    vm.apellidoClient_view = true;
+                    break;
+            }
+        }
+
+        /* ====================================== ADD CLIENT ====================================== */
+        vm.addClient = function(){
+            vm.params = {
+                'tipoCliente'      : vm.documentIdentSelected.value==='DNI'?'PERSONA':'EMPRESA',
+                'numeroDocumento'  : vm.numDoc,
+                'nombre'           : angular.isUndefinedOrNull(vm.nombreCliente)?'':vm.nombreCliente,
+                'apellido'         : angular.isUndefinedOrNull(vm.apellidosCliente)?'':vm.apellidosCliente,
+                'razonSocial'      : angular.isUndefinedOrNull(vm.razonSocial)?'':vm.razonSocial
+            };
+            dialogs.wait('Agregando Cliente','Por favor, espere se está procesando su solicitud<br><br>Esto solo debería tomar un momento.');
+            ventasService.agregarCliente(vm.params)
+                .then(function(data){
+                    $rootScope.$broadcast('dialogs.wait.complete');
+                    if(data.data.mensaje==='OK'){
+                        dialogs.notify("Informacion", "El cliente ha sido agregado satisfactoriamente");
+                    }else{
+                        dialogs.error("Error", data.data.mensaje);
+                    }
+                });
+        }
 
     };
     VentasController.$inject = ['$rootScope','$timeout','$translate','dialogs','ventasService'];
