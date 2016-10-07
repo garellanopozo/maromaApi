@@ -8,12 +8,5 @@ import lombok.Data;
 public class ClienteCanonicalResponse extends BaseCanonicalResponse implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String nombre;
-	private String apellido;
-	private String razonSocial;
-	private String numeroDeIdentIdentificacion;
-	private String estado;
-	private String tipoCliente;
 	
 }

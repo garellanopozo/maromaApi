@@ -38,40 +38,9 @@ public class MaromaRestController {
 	private ProductoService productoService;
 
 	@Autowired
-	private CategoriaService categoriaService;
-
-	@Autowired
-	private ClienteService clienteService;
-
-	@Autowired
 	private ComprobanteService comprobanteService;
 
-	/*
-	 * Categoria Service
-	 */
-	@RequestMapping(value = "/guardarCategoria", method = RequestMethod.POST)
-	@ResponseBody
-	public CategoriaCanonicalResponse guardarCategoria(@RequestBody CategoriaCanonicalRequest request) {
-		logger.debug("request body :" + request);
-		CategoriaCanonicalResponse response = null;
-		if (request != null) {
-			response = categoriaService.guardarCategoria(request);
-		}
-		logger.debug("response body : " + response);
-		return response;
-	}
-
-	@RequestMapping(value = "/eliminarCategoria", method = RequestMethod.POST)
-	@ResponseBody
-	public CategoriaCanonicalResponse eliminarCategoria(@RequestBody CategoriaCanonicalRequest categoriaCanonical) {
-		logger.debug("request body :" + categoriaCanonical);
-		CategoriaCanonicalResponse response = null;
-		if (categoriaCanonical.getId() != null) {
-			response = categoriaService.eliminarCategoria(categoriaCanonical);
-		}
-		logger.debug("response body : " + response);
-		return response;
-	}
+	
 
 	/*
 	 * Producto Services
@@ -111,72 +80,6 @@ public class MaromaRestController {
 		String response = gson.toJson(mapa);
 		logger.debug("response body : " + response);
 		return response;
-	}
-
-	/*
-	 * Cliente Services
-	 */
-	@RequestMapping(value = "/agregarCliente", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String guardarCliente(@RequestBody Map<String, Object> request) {
-		logger.debug("request body :" + request);
-		Map<String, Object> response = new HashMap<>();
-		if (request != null) {
-			ClienteCanonicalRequest ccreq = getCanonical(request);
-			ClienteCanonicalResponse ccresp = clienteService.guardarCliente(ccreq);
-			response.put("data", ccresp);
-		}
-		logger.debug("response body : " + response);
-		Gson gson = new Gson();
-		String string = gson.toJson(response);
-		return string;
-	}
-
-	private ClienteCanonicalRequest getCanonical(Map<String, Object> request) {
-		ClienteCanonicalRequest clienteCanonical = new ClienteCanonicalRequest();
-		clienteCanonical.setTipoCliente((String) request.get(ConstantesGenericas.TIPO_CLIENTE));
-		clienteCanonical.setNombre((String) request.get(ConstantesGenericas.PARAMETER_NOMBRE));
-		clienteCanonical.setApellido((String) request.get(ConstantesGenericas.PARAMETER_APELLIDO));
-		clienteCanonical.setRazonSocial((String) request.get(ConstantesGenericas.PARAMETER_RAZON_SOCIAL));
-		clienteCanonical.setNumeroDeIdentIdentificacion(
-				(String) request.get(ConstantesGenericas.PARAMETER_DOCUMENTO_IDENTIDAD));
-
-		return clienteCanonical;
-	}
-
-	@RequestMapping(value = "/eliminarCliente", method = RequestMethod.POST)
-	@ResponseBody
-	public ClienteCanonicalResponse eliminarCliente(@RequestBody ClienteCanonicalRequest request) {
-		logger.debug("request body :" + request);
-
-		ClienteCanonicalResponse response = null;
-		if (request != null) {
-			response = clienteService.eliminarCliente(request);
-		}
-		logger.debug("response body : " + response);
-		return response;
-	}
-
-	/*
-	 * Buscar Cliente
-	 */
-	@RequestMapping(value = "/buscarCliente", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-	public @ResponseBody String buscarCliente(@RequestBody Map<String, Object> request) {
-		logger.debug("request body :" + request);
-		Map<String, Object> response = new HashMap<>();
-		if (request != null) {
-			ClienteCanonicalRequest clienteCanonicalRequest = getClientCanonicalRequest(request);
-			response.put("data", clienteService.buscarCliente(clienteCanonicalRequest));
-		}
-		logger.debug("response body : " + response);
-		Gson gson = new Gson();
-		String string = gson.toJson(response);
-		return string;
-	}
-
-	private ClienteCanonicalRequest getClientCanonicalRequest(Map<String, Object> map) {
-		ClienteCanonicalRequest request = new ClienteCanonicalRequest();
-		request.setNumeroDeIdentIdentificacion((String) map.get(ConstantesGenericas.PARAMETER_DOCUMENTO_IDENTIDAD));
-		return request;
 	}
 
 	/*

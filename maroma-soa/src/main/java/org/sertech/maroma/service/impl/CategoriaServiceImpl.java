@@ -29,7 +29,6 @@ public class CategoriaServiceImpl implements CategoriaService {
 		response.setId(categoria.getId());
 		response.setCodigo(categoria.getCodigo());
 		response.setDescripcion(categoria.getDescripcion());
-		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_ERROR);
 		
 		return response;
 	}
@@ -48,7 +47,6 @@ public class CategoriaServiceImpl implements CategoriaService {
 		response.setId(categoria.getId());
 		response.setCodigo(categoria.getCodigo());
 		response.setDescripcion(categoria.getDescripcion());
-		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
 		return response;
 	}
 

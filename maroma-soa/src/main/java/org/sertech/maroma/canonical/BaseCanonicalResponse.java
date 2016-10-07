@@ -6,6 +6,5 @@ import lombok.Data;
 
 @Data
 public class BaseCanonicalResponse {
-	protected String mensaje;
-	protected Map<String, Object> respuesta;
+	protected Map<String, Object> data;
 }

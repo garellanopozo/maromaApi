@@ -68,8 +68,7 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 					item.setComprobanteId(comprobante);
 					detalleComprobanteRepository.save(item);
 				}
-				response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
-			}			
+			}
 		}
 		return response;
 	}

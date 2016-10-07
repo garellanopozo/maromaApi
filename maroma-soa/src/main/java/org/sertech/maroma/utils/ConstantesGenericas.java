@@ -2,10 +2,10 @@ package org.sertech.maroma.utils;
 
 public class ConstantesGenericas {
 	public static String TIPO_CLIENTE			= "tipoCliente";
-	public static String TIPO_CLIENTE_PERSONA	= "PERSONA";
-	public static String TIPO_CLIENTE_EMPRESA	= "EMPRESA";
-	public static String ACTIVO					= "ACTIVO";
-	public static String INACTIVO				= "INACTIVO";
+	public static String TIPO_CLIENTE_PERSONA	= "Persona";
+	public static String TIPO_CLIENTE_EMPRESA	= "Empresa";
+	public static String ACTIVO					= "Activo";
+	public static String INACTIVO				= "Inactivo";
 	
 	// Request & Response Map Keys
 	public static String PARAMETER_DOCUMENTO_IDENTIDAD = "numeroDocumento";

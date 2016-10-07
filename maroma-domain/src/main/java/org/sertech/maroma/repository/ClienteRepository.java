@@ -14,5 +14,9 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity,Long> {
 	
 	@Query(value="from ClienteEntity c where c.numeroDeIdentIdentificacion=:numeroDocumento and c.deleted <> 'Y' ")
 	public List<ClienteEntity> buscarPorDocumentoIdentidad(@Param("numeroDocumento")String numeroDocumento);
+	
+	@Query(value="from ClienteEntity c where c.apellido like %:apellido% and c.deleted <> 'Y' ")
+	public List<ClienteEntity> buscarPorApellido(@Param("apellido")String apellido);
+	
 }
 

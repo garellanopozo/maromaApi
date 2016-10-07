@@ -95,7 +95,6 @@ public class ProductoServiceImpl implements ProductoService {
 		{
 			reponseMap.put(ConstantesGenericas.PARAMETER_PRODUCTOS, null);
 		}
-		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
 		return response;
 	}
 

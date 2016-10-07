@@ -18,111 +18,86 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ma.glasnost.orika.MapperFacade;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private MapperFacade mapperFacade;
 
 	@Override
 	public ClienteCanonicalResponse guardarCliente(ClienteCanonicalRequest request) {
 		ClienteCanonicalResponse response = new ClienteCanonicalResponse();
-
+		Map<String,Object> respuestaMap = new HashMap<>();
+		
 		ClienteEntity cliente = new ClienteEntity();
 		if (esRequestValido(request) == true) {
-			cliente = buildCliente(request);
+			cliente = mapperFacade.map(request.getClienteDto(), ClienteEntity.class);
 			cliente = clienteRepository.save(cliente);
-
-			response.setNombre(cliente.getNombre());
-			response.setApellido(cliente.getApellido());
-			response.setRazonSocial(cliente.getRazonSocial());
-			response.setNumeroDeIdentIdentificacion(cliente.getNumeroDeIdentIdentificacion());
-			response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
+			
+			ClienteDTO clienteDto = mapperFacade.map(cliente, ClienteDTO.class);
+			respuestaMap = new HashMap<>();
+			respuestaMap.put("cliente", clienteDto);
+			respuestaMap.put("message", ResponseMensajeContantes.SERVICE_RESPONSE_OK);
+			
+			response.setData(respuestaMap);
 		} else {
-			response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_ERROR);
+			respuestaMap.put("message", ResponseMensajeContantes.SERVICE_RESPONSE_ERROR);
 		}
 
 		return response;
 	}
 
-	@Override
-	public ClienteCanonicalResponse eliminarCliente(ClienteCanonicalRequest request) {
-		ClienteCanonicalResponse response = new ClienteCanonicalResponse();
-
-		ClienteEntity cliente = clienteRepository.findOne(request.getId());
-		cliente.setDeleted("Y");
-		cliente = clienteRepository.save(cliente);
-
-		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
-		return response;
-	}
+//	@Override
+//	public ClienteCanonicalResponse eliminarCliente(ClienteCanonicalRequest request) {
+//		ClienteCanonicalResponse response = new ClienteCanonicalResponse();
+//
+//		ClienteEntity cliente = clienteRepository.findOne(request.getId());
+//		cliente.setDeleted("Y");
+//		cliente = clienteRepository.save(cliente);
+//
+//		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
+//		return response;
+//	}
 
 	@Override
 	public ClienteCanonicalResponse buscarCliente(ClienteCanonicalRequest request) {
 		String documentoIdentidad = null;
 		ClienteCanonicalResponse response = new ClienteCanonicalResponse();
-		Map<String, Object> reponseMap = new HashMap<>();
+		Map<String, Object> respuestaMap = new HashMap<>();
 		
-		documentoIdentidad = request.getNumeroDeIdentIdentificacion();
-		List<ClienteEntity> listaClientes = clienteRepository.buscarPorDocumentoIdentidad(documentoIdentidad);
+		documentoIdentidad = request.getClienteDto().getNumeroDocumento();
+		List<ClienteEntity> listaClientes = new ArrayList<>();
+		if(documentoIdentidad != null){
+			listaClientes = clienteRepository
+					.buscarPorDocumentoIdentidad(documentoIdentidad);
+		}
+		else {
+			listaClientes = clienteRepository
+					.buscarPorApellido(request.getClienteDto().getApellido());
+		}
 		if(!CollectionUtils.isEmpty(listaClientes)){
-			List<Map<String, String>> listaMapaClientes = mapearRespuesta(listaClientes);
-			reponseMap.put(ConstantesGenericas.PARAMETER_CLIENTES, listaMapaClientes);
-		}
-		else
-		{
-			reponseMap.put(ConstantesGenericas.PARAMETER_PRODUCTOS, null);
-		}
-		response.setRespuesta(reponseMap);
-		response.setMensaje(ResponseMensajeContantes.SERVICE_RESPONSE_OK);
+			List<ClienteDTO> clientesDtoList = convertirADto(listaClientes);
+			respuestaMap.put(ConstantesGenericas.PARAMETER_CLIENTES, clientesDtoList);
+			respuestaMap.put("message", ResponseMensajeContantes.SERVICE_RESPONSE_OK);
+		}	
+		
+		response.setData(respuestaMap);
 		return response;
 	}
 	
-	private List<Map<String,String>> mapearRespuesta(List<ClienteEntity> listaClientes) {
-		List<Map<String,String>> listaMapaClientes = new ArrayList<>();
+	private List<ClienteDTO> convertirADto(List<ClienteEntity> listaClientes) {
+		List<ClienteDTO> clienteDtoList = new ArrayList<>();
 		for(ClienteEntity cliente : listaClientes){
-			Map<String, String> mapCliente = new HashMap<>();
-			mapCliente.put(ConstantesGenericas.PARAMETER_NOMBRE, 
-					cliente.getNombre());
-			mapCliente.put(ConstantesGenericas.PARAMETER_APELLIDO, 
-					cliente.getApellido());
-			mapCliente.put(ConstantesGenericas.PARAMETER_RAZON_SOCIAL, 
-					cliente.getRazonSocial());
-			mapCliente.put(ConstantesGenericas.PARAMETER_DOCUMENTO_IDENTIDAD, 
-					cliente.getNumeroDeIdentIdentificacion());
-			mapCliente.put(ConstantesGenericas.PARAMETER_ESTADO, 
-					cliente.getEstado());
-			listaMapaClientes.add(mapCliente);
+			ClienteDTO clienteDto = mapperFacade.map(cliente, ClienteDTO.class);
+			clienteDtoList.add(clienteDto);
 		}
 		
-		return listaMapaClientes;
-	}
-
-	/**
-	 * Construye Entity desde el request
-	 * 
-	 * @param request
-	 * @return
-	 */
-	private ClienteEntity buildCliente(ClienteCanonicalRequest request) {
-		ClienteEntity cliente = new ClienteEntity();
-
-		if (request.getTipoCliente() != null
-				&& request.getTipoCliente().equals(ConstantesGenericas.TIPO_CLIENTE_PERSONA)) {
-			cliente.setNombre(request.getNombre());
-			cliente.setApellido(request.getApellido());
-			cliente.setTipoCliente(ConstantesGenericas.TIPO_CLIENTE_PERSONA);
-		} else {
-			cliente.setRazonSocial(request.getRazonSocial());
-			cliente.setTipoCliente(ConstantesGenericas.TIPO_CLIENTE_EMPRESA);
-		}
-		cliente.setNumeroDeIdentIdentificacion(request.getNumeroDeIdentIdentificacion());
-		cliente.setEstado(ConstantesGenericas.ACTIVO);
-
-		return cliente;
+		return clienteDtoList;
 	}
 
 	/**
@@ -134,21 +109,23 @@ public class ClienteServiceImpl implements ClienteService {
 	private boolean esRequestValido(ClienteCanonicalRequest request) {
 		boolean esValido = true;
 
-		if (request.getTipoCliente() != null
-				&& request.getTipoCliente().equals(ConstantesGenericas.TIPO_CLIENTE_EMPRESA)) {
-			if (StringUtils.isEmpty(request.getRazonSocial())) {
+		ClienteDTO clienteDto = request.getClienteDto();
+		
+		if (clienteDto.getTipoCliente() != null
+				&& clienteDto.getTipoCliente().equals(ConstantesGenericas.TIPO_CLIENTE_EMPRESA)) {
+			if (StringUtils.isEmpty(clienteDto.getRazonSocial())) {
 				esValido = false;
-			} else if (esRUCValido(request.getNumeroDeIdentIdentificacion()) == false) {
+			} else if (esRUCValido(clienteDto.getNumeroDocumento()) == false) {
 				esValido = false;
 			}
-		} else if (request.getTipoCliente() != null
-				&& request.getTipoCliente().equals(ConstantesGenericas.TIPO_CLIENTE_PERSONA)) {
-			String nombre = request.getNombre().trim();
-			String apellido = request.getApellido().trim();
+		} else if (clienteDto.getTipoCliente() != null
+				&& clienteDto.getTipoCliente().equals(ConstantesGenericas.TIPO_CLIENTE_PERSONA)) {
+			String nombre = clienteDto.getNombre().trim();
+			String apellido = clienteDto.getApellido().trim();
 
 			if (StringUtils.isEmpty(nombre) && StringUtils.isEmpty(apellido)) {
 				esValido = false;
-			} else if (esDNIValido(request.getNumeroDeIdentIdentificacion()) == false) {
+			} else if (esDNIValido(clienteDto.getNumeroDocumento()) == false) {
 				esValido = false;
 			}
 		} else {
