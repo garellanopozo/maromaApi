@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class ProductoCanonicalResponse extends BaseCanonicalResponse implements Serializable{
+public class PrecioProductoCanonicalResponse extends BaseCanonicalResponse implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

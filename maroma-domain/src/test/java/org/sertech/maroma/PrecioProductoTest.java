@@ -13,7 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MaromaDomainApplication.class)
@@ -32,6 +36,18 @@ public class PrecioProductoTest {
         precioprod.setProductoId(producto);
         precioprod = precioProductoRepository.save(precioprod);
         assertNotNull(precioprod.getId());
+    }
+    
+    @Test
+    @Transactional
+    public void buscarPrecioVigentePorDescripcionProducto() throws Exception {
+        List<PrecioProductoEntity> list = new ArrayList<PrecioProductoEntity>();
+        list = precioProductoRepository.buscarPrecioVigentePorDescripcionProducto("menu");
+        assertNotNull(list);
+        System.out.println(list.size());
+        for(PrecioProductoEntity precioProductoEntity : list){
+        	System.out.println(precioProductoEntity);
+        }
     }
 }
 

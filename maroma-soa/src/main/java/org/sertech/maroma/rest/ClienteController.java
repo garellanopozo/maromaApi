@@ -1,14 +1,10 @@
 package org.sertech.maroma.rest;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.sertech.maroma.canonical.CategoriaCanonicalRequest;
-import org.sertech.maroma.canonical.CategoriaCanonicalResponse;
 import org.sertech.maroma.canonical.ClienteCanonicalRequest;
 import org.sertech.maroma.canonical.ClienteCanonicalResponse;
 import org.sertech.maroma.dto.ClienteDTO;
-import org.sertech.maroma.service.CategoriaService;
 import org.sertech.maroma.service.ClienteService;
 import org.sertech.maroma.utils.ConstantesGenericas;
 import org.slf4j.Logger;
@@ -21,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-
 @Controller
 @RequestMapping("/api/maroma")
-public class ClienteController {
+public class ClienteController  extends BaseController{
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -42,23 +36,9 @@ public class ClienteController {
 			clienteCanonicalResponse = clienteService.guardarCliente(clienteCanonicalRequest);
 		}
 		logger.debug("response body : " + clienteCanonicalResponse);
-		Gson gson = new Gson();
-		String string = gson.toJson(clienteCanonicalResponse);
-		return string;
+		String response = convertirJson(clienteCanonicalResponse);
+		return response;
 	}
-
-//	@RequestMapping(value = "/eliminarCliente", method = RequestMethod.POST)
-//	@ResponseBody
-//	public ClienteCanonicalResponse eliminarCliente(@RequestBody ClienteCanonicalRequest request) {
-//		logger.debug("request body :" + request);
-//
-//		ClienteCanonicalResponse response = null;
-//		if (request != null) {
-//			response = clienteService.eliminarCliente(request);
-//		}
-//		logger.debug("response body : " + response);
-//		return response;
-//	}
 	
 	@RequestMapping(value = "/buscarCliente", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public @ResponseBody String buscarCliente(@RequestBody Map<String, Object> request) {
@@ -69,9 +49,8 @@ public class ClienteController {
 			clienteCanonicalResponse = clienteService.buscarCliente(clienteCanonicalRequest);
 		}
 		logger.debug("response body : " + clienteCanonicalResponse);
-		Gson gson = new Gson();
-		String string = gson.toJson(clienteCanonicalResponse);
-		return string;
+		String response = convertirJson(clienteCanonicalResponse);
+		return response;
 	}
 	
 	private ClienteCanonicalRequest getCanonical(Map<String, Object> request) {
