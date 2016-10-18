@@ -4,12 +4,8 @@ import java.util.Map;
 
 import org.sertech.maroma.canonical.PrecioProductoCanonicalRequest;
 import org.sertech.maroma.canonical.PrecioProductoCanonicalResponse;
-import org.sertech.maroma.canonical.ProductoCanonicalRequest;
-import org.sertech.maroma.canonical.ProductoCanonicalResponse;
 import org.sertech.maroma.dto.PrecioProductoDTO;
-import org.sertech.maroma.dto.ProductoDTO;
 import org.sertech.maroma.service.PrecioProductoService;
-import org.sertech.maroma.service.ProductoService;
 import org.sertech.maroma.utils.ConstantesGenericas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +27,9 @@ public class PrecioProductoController extends BaseController{
 	@Autowired
 	private PrecioProductoService precioProductoService;
 
-	@RequestMapping(value = "/buscarProducto", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/buscarProductoConPrecio", 
+			method = RequestMethod.POST, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String findProducto(@RequestBody Map<String, String> requestMap) {
 
 		PrecioProductoCanonicalRequest precioProductoCanonicalRequest = 

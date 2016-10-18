@@ -19,18 +19,4 @@ public class MaromaRestController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
-	private ComprobanteService comprobanteService;
-
-	@RequestMapping(value = "/guardarComprobante", method = RequestMethod.POST)
-	@ResponseBody
-	public ComprobanteCanonicalResponse guardarComprobante(@RequestBody ComprobanteCanonicalRequest request) {
-		logger.debug("request body :" + request);
-		ComprobanteCanonicalResponse response = null;
-		if (request != null) {
-			response = comprobanteService.guardarComprobante(request);
-		}
-		logger.debug("response body : " + response);
-		return response;
-	}
 }

@@ -27,22 +27,24 @@ public class ProductoController extends BaseController{
 	@Autowired
 	private ProductoService productoService;
 
-//	@RequestMapping(value = "/buscarProducto", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody String findProducto(@RequestBody Map<String, String> requestMap) {
-//
-//		ProductoCanonicalRequest productoCanonicalRequest = getProductoCanonicalRequest(requestMap);
-//		ProductoCanonicalResponse productoCanonicalResponse = productoService.buscarProductoByDescription(productoCanonicalRequest);
-//		String response = convertirJson(productoCanonicalResponse);
-//		logger.debug("response body : " + response);
-//		return response;
-//	}
-//
-//	private ProductoCanonicalRequest getProductoCanonicalRequest(Map<String, String> requestMap) {
-//		ProductoCanonicalRequest request = new ProductoCanonicalRequest();
-//		ProductoDTO productoDto = new ProductoDTO();
-//		String descripcion = requestMap.get(ConstantesGenericas.PARAMETER_DESCRIPCION_PRODUCTO);
-//		productoDto.setDescripcion(descripcion);
-//		request.setProductoDto(productoDto);
-//		return request;
-//	}
+	@RequestMapping(value = "/buscarProducto", 
+			method = RequestMethod.POST, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String findProducto(@RequestBody Map<String, String> requestMap) {
+
+		ProductoCanonicalRequest productoCanonicalRequest = getProductoCanonicalRequest(requestMap);
+		ProductoCanonicalResponse productoCanonicalResponse = productoService.buscarProductoByDescription(productoCanonicalRequest);
+		String response = convertirJson(productoCanonicalResponse);
+		logger.debug("response body : " + response);
+		return response;
+	}
+
+	private ProductoCanonicalRequest getProductoCanonicalRequest(Map<String, String> requestMap) {
+		ProductoCanonicalRequest request = new ProductoCanonicalRequest();
+		ProductoDTO productoDto = new ProductoDTO();
+		String descripcion = requestMap.get(ConstantesGenericas.PARAMETER_DESCRIPCION_PRODUCTO);
+		productoDto.setDescripcion(descripcion);
+		request.setProductoDto(productoDto);
+		return request;
+	}
 }
