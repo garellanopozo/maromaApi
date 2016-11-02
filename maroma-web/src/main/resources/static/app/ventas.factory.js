@@ -5,7 +5,8 @@
     var VentasFactory = function($resource,$http,$q){
         var service = {
             buscarCliente: buscarCliente,
-            agregarCliente:agregarCliente
+            agregarCliente:agregarCliente,
+            buscarProducto:buscarProducto
         };
         return service;
 
@@ -24,6 +25,18 @@
         function agregarCliente(params){
             var defer = $q.defer();
             $http.post('http://localhost:8080/api/maroma/agregarCliente',params)
+                .then(function(data){
+                    defer.resolve(data.data);
+                })
+                .catch(function(){
+                    defer.reject();
+                });
+            return defer.promise;
+        }
+
+        function buscarProducto(params){
+            var defer = $q.defer();
+            $http.post('http://localhost:8080/api/maroma/buscarProducto',params)
                 .then(function(data){
                     defer.resolve(data.data);
                 })

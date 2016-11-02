@@ -29,6 +29,8 @@
         vm.documentIdentSelected = vm.documentIdentList[0];
         vm.maxSize = 8;
         vm.minSize = 8;
+        vm.producto='';
+        vm.listProducto = '';
 
         vm.tipDocChange = function(){
             switch (vm.documentIdentSelected.value) {
@@ -141,6 +143,14 @@
                     }else{
                         dialogs.error("Error", data.data.mensaje);
                     }
+                });
+        }
+
+        /* ====================================== SEARCH PRODUCT ====================================== */
+        vm.searchProduct = function(){
+            ventasService.buscarProducto({'descripcion': vm.producto})
+                .then(function(data){
+                    console.log('data'+data);
                 });
         }
 
