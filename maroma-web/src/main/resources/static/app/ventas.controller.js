@@ -30,7 +30,8 @@
         vm.maxSize = 8;
         vm.minSize = 8;
         vm.producto='';
-        vm.listProducto = '';
+        vm.listProducto=[];
+        vm.clienteResultName = '';
 
         vm.tipDocChange = function(){
             switch (vm.documentIdentSelected.value) {
@@ -70,8 +71,10 @@
                 ventasService.buscarCliente(informacionABuscar())
                 .then(function(data){
                     $rootScope.$broadcast('dialogs.wait.complete');
-                    if(!angular.isUndefinedOrNull(data.data.respuesta)){
+                    if(!angular.isUndefinedOrNull(data.data.message)){
                         vm.panelDetalleVenta_View = true;
+                        vm.cliente=data.data.clientes[0];
+                        vm.clienteResultName =  vm.cliente.nombre + ' ' + vm.cliente.apellido;
                     }else{
                         agregarCliente();
                     }
@@ -148,12 +151,22 @@
 
         /* ====================================== SEARCH PRODUCT ====================================== */
         vm.searchProduct = function(){
-            ventasService.buscarProducto({'descripcion': vm.producto})
-                .then(function(data){
-                    console.log('data'+data);
-                });
-        }
+            console.log("longitud de la cadena del producto es: "+ vm.producto.length);
+            if(vm.producto.length>=3){
+                ventasService.buscarProducto({'descripcion': vm.producto})
+                    .then(function(data){
+                        if(!angular.isUndefinedOrNull(data.data.producto)){
+                            console.log('data'+data.data.producto);
+                            //var someMovies = ["The Wolverine", "The Smurfs 2", "The Mortal Instruments: City of Bones", "Drinking Buddies", "All the Boys Love Mandy Lane", "The Act Of Killing", "Red 2", "Jobs", "Getaway", "Red Obsession", "2 Guns", "The World's End", "Planes", "Paranoia", "The To Do List", "Man of Steel"];
+                            //vm.listProducto = someMovies;
+                             for (var i=0; i<data.data.producto.length; i++){
+                                 vm.listProducto.push(data.data.producto[i].descripcion);
+                             }
+                        }
+                    });
 
+            }
+        }
     };
     VentasController.$inject = ['$rootScope','$timeout','$translate','dialogs','ventasService'];
     angular.module("myApp.controllers").controller("VentasController",VentasController);

@@ -1,7 +1,7 @@
 /* --- Made by justgoscha and licensed under MIT license --- */
 
 angular.module('myApp.directive', [])
-.directive('autocomplete', function() {
+    .directive('autocomplete', function() {
   var index = -1;
 
   return {
@@ -273,39 +273,5 @@ angular.module('myApp.directive', [])
               ng-bind-html="suggestion | highlight:searchParam"></li>\
           </ul>\
         </div>'
-  };
-});
-
-app.filter('highlight', ['$sce', function ($sce) {
-  return function (input, searchParam) {
-    if (typeof input === 'function') return '';
-    if (searchParam) {
-      var words = '(' +
-            searchParam.split(/\ /).join(' |') + '|' +
-            searchParam.split(/\ /).join('|') +
-          ')',
-          exp = new RegExp(words, 'gi');
-      if (words.length) {
-        input = input.replace(exp, "<span class=\"highlight\">$1</span>");
-      }
-    }
-    return $sce.trustAsHtml(input);
-  };
-}]);
-
-app.directive('suggestion', function(){
-  return {
-    restrict: 'A',
-    require: '^autocomplete', // ^look for controller on parents element
-    link: function(scope, element, attrs, autoCtrl){
-      element.bind('mouseenter', function() {
-        autoCtrl.preSelect(attrs.val);
-        autoCtrl.setIndex(attrs.index);
-      });
-
-      element.bind('mouseleave', function() {
-        autoCtrl.preSelectOff();
-      });
-    }
-  };
-});
+        };
+    });
