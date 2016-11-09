@@ -157,8 +157,10 @@
                                                 ng-model="vm.producto"
                                                 attr-placeholder="escriba el producto a buscar..."
                                                 data="vm.listProducto"
+                                                on-select="vm.doSomethingElse"
                                                 on-type="vm.searchProduct">
                                         </autocomplete>
+                                        <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" ng-model="vm.precioProducto">
                                         <button class="btn btn-primary btn-form-inline" aria-hidden="true" type="button"ng-click="deleteCampaign(row.rowIndex)"><i class="fa fa-plus-square"></i></button>
                                     </div>
                                 </div>
