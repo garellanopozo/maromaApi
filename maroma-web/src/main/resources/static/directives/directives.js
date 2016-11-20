@@ -377,12 +377,12 @@ angular.module('myApp.directive',[])
                 });
             },
             template: '\
-        <div class="autocomplete {{ attrs.class }}" id="{{ attrs.id }}">\
+        \
           <input\
             type="text"\
             ng-model="searchParam"\
             placeholder="{{ attrs.placeholder }}"\
-            class="{{ attrs.inputclass }}"\
+            class="form-control"\
             tabindex="{{ attrs.tabindex }}"\
             id="{{ attrs.inputid }}"\
             name="{{ attrs.name }}"\
@@ -407,7 +407,7 @@ angular.module('myApp.directive',[])
               ng-click="select(suggestion)"\
               ng-bind-html="suggestion | highlight:searchParam"></li>\
           </ul>\
-        </div>'
+        '
         };
     })
     .filter('highlight', ['$sce', function ($sce) {

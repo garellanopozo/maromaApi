@@ -149,19 +149,22 @@
                             <div class="col-lg-12 col-md-12 col-xsm-12">
                                 <div class="form-group">
                                     <div class="form-inline">
-                                        <label class="control-label">Producto:</label>
-                                        <autocomplete
-                                                id="prodText"
-                                                attr-inputid="prodText"
-                                                attr-inputclass="form-control"
-                                                ng-model="vm.producto"
-                                                attr-placeholder="escriba el producto a buscar..."
-                                                data="vm.listProducto"
-                                                on-select="vm.doSomethingElse"
-                                                on-type="vm.searchProduct">
-                                        </autocomplete>
-                                        <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" ng-model="vm.precioProducto">
-                                        <button class="btn btn-primary btn-form-inline" aria-hidden="true" type="button"ng-click="deleteCampaign(row.rowIndex)"><i class="fa fa-plus-square"></i></button>
+                                        <div class="form-group autocomplete">
+                                            <label class="control-label">Producto:</label>
+                                            <autocomplete
+                                                    id="prodText"
+                                                    attr-inputid="prodText"
+                                                    attr-inputclass="form-control"
+                                                    ng-model="vm.producto"
+                                                    attr-placeholder="escriba el producto a buscar..."
+                                                    data="vm.listProducto"
+                                                    on-select="vm.doSomethingElse"
+                                                    on-type="vm.searchProduct">
+                                            </autocomplete>
+                                            <label class="control-label">Precio:</label>
+                                            <input type="text" class="form-control" id="txtPrecio" name="txtPrecio" ng-model="vm.precioProducto">
+                                            <button class="btn btn-primary btn-form-inline" aria-hidden="true" type="button"ng-click="deleteCampaign(row.rowIndex)"><i class="fa fa-plus-square"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

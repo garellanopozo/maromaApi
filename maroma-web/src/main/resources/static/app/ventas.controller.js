@@ -3,7 +3,7 @@
  */
 
 (function(angular){
-    var VentasController = function($rootScope,$timeout,$translate,dialogs,ventasService){
+    var VentasController = function($rootScope,$timeout,$filter,$translate,dialogs,ventasService){
 
         angular.isUndefinedOrNull = function(val) {
             return angular.isUndefined(val) || val === null || val ==='' || Object.getOwnPropertyNames(val).length === 0
@@ -32,6 +32,7 @@
         vm.producto='';
         vm.listProducto=[];
         vm.clienteResultName = '';
+        vm.cont=0;
 
         vm.tipDocChange = function(){
             switch (vm.documentIdentSelected.value) {
@@ -153,22 +154,48 @@
         vm.searchProduct = function(){
             console.log("longitud de la cadena del producto es: "+ vm.producto.length);
             if(vm.producto.length>=3){
-                ventasService.buscarProducto({'descripcion': vm.producto})
-                    .then(function(data){
-                        if(!angular.isUndefinedOrNull(data.data.producto)){
-                            console.log('data'+data.data.producto);
-                            //var someMovies = ["The Wolverine", "The Smurfs 2", "The Mortal Instruments: City of Bones", "Drinking Buddies", "All the Boys Love Mandy Lane", "The Act Of Killing", "Red 2", "Jobs", "Getaway", "Red Obsession", "2 Guns", "The World's End", "Planes", "Paranoia", "The To Do List", "Man of Steel"];
-                            //vm.listProducto = someMovies;
-                             for (var i=0; i<data.data.producto.length; i++){
-                                 vm.listProducto.push(data.data.producto[i].descripcion);
-                             }
-                        }
-                    });
-
+                if(vm.cont==0){
+                    ventasService.buscarProducto({'descripcion': vm.producto})
+                        .then(function(data){
+                            if(!angular.isUndefinedOrNull(data.data.producto)){
+                                firstArrayComplete(data.data.producto);
+                                vm.cont=1;
+                            }
+                        });
+                }
+                /*else{
+                    for (var i=0; i<vm.listProducto.length; i++){
+                        isNotExistProducto(listProducto[i].descripcion)
+                    }
+                }*/
             }
         }
+
+        function firstArrayComplete(productList){
+            for (var i=0; i<productList.length; i++){
+                //if(cont==0){
+                    vm.listProducto.push(productList[i].descripcion);
+                //}
+            }
+        }
+
+        function isNotExistProducto(prodDescription){
+            var found = $filter('getById')(vm.listProducto,prodDescription);
+            console.log(found);
+            vm.selected = JSON.stringify(found);
+            if(angular.isUndefinedOrNull(vm.selected)){
+                vm.listProducto.push(vm.selected);
+            }
+            else{
+                console.log("Nada");
+            }
+        }
+
+        vm.doSomethingElse = function(suggestion){
+            console.log("Suggestion selected: " + suggestion);
+        }
     };
-    VentasController.$inject = ['$rootScope','$timeout','$translate','dialogs','ventasService'];
+    VentasController.$inject = ['$rootScope','$timeout','$filter','$translate','dialogs','ventasService'];
     angular.module("myApp.controllers").controller("VentasController",VentasController);
 }(angular));
 
